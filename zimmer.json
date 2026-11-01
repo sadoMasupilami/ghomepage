@@ -1,0 +1,230 @@
+{
+  "_hinweise": {
+    "info": "Diese Datei steuert die Zimmerliste auf zimmer.html. Auf GitHub bearbeiten, 'Commit changes' klicken – die Seite wird in 1-2 Minuten automatisch aktualisiert.",
+    "preis": "Zahl in Euro pro Monat (z. B. 380). null (ohne Anfuehrungszeichen) = 'auf Anfrage'.",
+    "balkon": "true = Balkon-Tag wird angezeigt, false = nicht.",
+    "hinweis": "Zusatztext als kleines Abzeichen (z. B. \"ab Sept. 2026\"). Leer lassen (\"\") = kein Abzeichen. Ergaenzt den Status.",
+    "photos": "Liste der Bildpfade. Nur aendern, wenn neue Fotos hinzukommen. Reihenfolge = Reihenfolge in der Galerie, erstes Bild = Vorschau.",
+    "achtung": "Gueltiges JSON beibehalten: Texte in \"...\", Eintraege mit Komma trennen, KEIN Komma nach dem letzten Eintrag.",
+    "status": "Verfügbarkeit: \"frei\", \"reserviert\", \"gaestezimmer\" oder \"belegt\" (steuert Farbe des Badges und den Filter). Leer (\"\") = kein Status-Badge."
+  },
+  "zimmer": [
+    {
+      "name": "Marburg",
+      "size": 21,
+      "price": 380,
+      "status": "belegt",
+      "balkon": false,
+      "hinweis": "",
+      "photos": [
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Zi-Marburg_01.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Zi-Marburg_02.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Zi-Marburg_03.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Zi-Marburg_04.jpeg"
+      ]
+    },
+    {
+      "name": "Graz",
+      "size": 23,
+      "price": 410,
+      "status": "belegt",
+      "balkon": false,
+      "hinweis": "",
+      "photos": [
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Zi-Graz_01.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Zi-Graz_02.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Zi-Graz_03.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Zi-Graz_04.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Zi-Graz_05.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Zi-Graz_06.jpeg"
+      ]
+    },
+    {
+      "name": "Leoben",
+      "size": 16,
+      "price": 300,
+      "status": "belegt",
+      "balkon": false,
+      "hinweis": "",
+      "photos": [
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Leoben1.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Leoben2.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Leoben3.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Leoben4.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Leoben5.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Leoben6.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/Leoben7.jpeg"
+      ]
+    },
+    {
+      "name": "Jena",
+      "size": 16,
+      "price": 300,
+      "status": "reserviert",
+      "balkon": false,
+      "hinweis": "",
+      "photos": [
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/jena_02.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/rudelsburg_01.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/rudelsburg_02.jpeg"
+      ]
+    },
+    {
+      "name": "Halle",
+      "size": 16,
+      "price": 300,
+      "status": "frei",
+      "balkon": false,
+      "hinweis": "",
+      "photos": [
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/halle_01.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/rudelsburg_01.jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/rudelsburg_02.jpeg"
+      ]
+    },
+    {
+      "name": "Leipzig",
+      "size": 24,
+      "price": 400,
+      "status": "belegt",
+      "balkon": false,
+      "hinweis": "",
+      "photos": [
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/rest/77DA209A-A76F-4A9B-B185-692C29C7DA0C.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/rest/7C5EEE97-BB36-4F85-96A0-7EC21963DD50.jpeg"
+      ]
+    },
+    {
+      "name": "Klagenfurt",
+      "size": 23,
+      "price": 430,
+      "status": "belegt",
+      "balkon": false,
+      "hinweis": "",
+      "photos": [
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Klagenfurt/085FEA7A-61EE-4390-9A43-37305403FAB1.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Klagenfurt/0FD21F33-A307-44E4-A27D-A5D191BB5D42.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Klagenfurt/2DC1ECFD-6E20-4060-BFC6-A0899BC52742.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Klagenfurt/2ECA1513-4F20-4E76-937A-AB340C958387.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Klagenfurt/311F901A-7705-4A50-8BCC-3FE9978C36A4.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Klagenfurt/334E85C3-AABF-4DAB-93F0-4E672D38BFBB.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Klagenfurt/740931A5-0609-4F36-B714-8A47980472D4.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Klagenfurt/7B257A05-FEE0-4FAC-9302-90347B622CFC.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Klagenfurt/8D1A2FC8-A02E-45AF-9514-4A30B83E92C7.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Klagenfurt/DD172B31-BEF9-4BB2-B3F4-4A98F34009CD.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Klagenfurt/E88D8F6D-D16B-4778-8DB4-4922E129582E.jpeg"
+      ]
+    },
+    {
+      "name": "Wien",
+      "size": 23,
+      "price": 430,
+      "status": "belegt",
+      "balkon": true,
+      "hinweis": "",
+      "photos": [
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Wien/3707BAFD-D104-4266-BC80-8C12438E4FE1.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Wien/5C090509-DB18-41F2-B5D1-6B70E5C17C6D.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Wien/5D3E5FE4-0046-4C15-B6AC-B486D489D62D.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Wien/952D89E1-FB23-4691-BEA6-18F441ECF368.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Wien/9D7A7027-AC6E-427E-9048-C22CAF4E28FA.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Wien/BC92BC3B-9887-4894-B7E7-A28F84D428D5.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Wien/F3BE7138-F587-4D30-9063-914E0B14B44F.jpeg"
+      ]
+    },
+    {
+      "name": "Linz",
+      "size": 16,
+      "price": 325,
+      "status": "reserviert",
+      "balkon": true,
+      "hinweis": "",
+      "photos": [
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Linz/32AFC69E-CF36-4D2F-96BB-68A8C573AC2C.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Linz/3A4216D6-61D7-4CCD-9A5B-B49CABA9B9FB.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Linz/3D7FD8D7-5BD8-4853-9DCB-A5624D0AC1AD.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Linz/56F879BD-0659-46F0-906C-2D4F92358C61.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Linz/584BFA23-6E01-4F43-A668-5D53E591A77B.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Linz/82272960-AD4E-409B-BEF0-DEC08FC6B583.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Linz/98604065-F5B0-42E0-9215-2B38EBA80755.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Linz/A5DEBE98-96EB-452D-8338-3199D075F491.jpeg"
+      ]
+    },
+    {
+      "name": "Salzburg",
+      "size": 16,
+      "price": 325,
+      "status": "belegt",
+      "balkon": true,
+      "hinweis": "",
+      "photos": [
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Graz/421A8447-BDB8-41F3-BE25-CB61E16AAE53.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Graz/7843E0CD-2AD2-4EE0-B966-8C47C6137608.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Graz/99910D44-1CFC-45C8-AD2C-1DCAA7DEAC96.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Graz/EDF5C7F8-192F-455A-B3C7-6FBA7420E966.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Graz/F35036B3-00AF-4527-837B-03557107A9F4.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/Graz/F473C8B1-8560-49E2-83FA-1D0A6E988EF2.jpeg"
+      ]
+    },
+    {
+      "name": "Innsbruck",
+      "size": 24,
+      "price": 450,
+      "status": "belegt",
+      "balkon": true,
+      "hinweis": "",
+      "photos": [
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/rest/9A391112-FF89-44B8-B4D6-2876C75B8811.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/rest/9BBCC822-648E-49E7-AAC3-E6037D5155C3.jpeg"
+      ]
+    },
+    {
+      "name": "Bozen",
+      "size": 16,
+      "price": 340,
+      "status": "belegt",
+      "balkon": true,
+      "hinweis": "",
+      "photos": [
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/rest/AE7F160F-BD36-4E78-A70E-F775FF116D16.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/rest/B835DA61-8695-408D-90C0-0858F151FFDB.jpeg"
+      ]
+    },
+    {
+      "name": "Breslau",
+      "size": 8,
+      "price": null,
+      "status": "gaestezimmer",
+      "balkon": false,
+      "hinweis": "",
+      "photos": [
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/rest/B9FD6C84-E3FB-477D-BEEB-BE4EE63BD06E.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/rest/CADCCE32-1723-440B-96D3-C42FDF35C91B.jpeg"
+      ]
+    },
+    {
+      "name": "Brünn",
+      "size": 19,
+      "price": 370,
+      "status": "belegt",
+      "balkon": false,
+      "hinweis": "",
+      "photos": [
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/rest/DCE9BBCF-8DA0-46FC-90A9-26D8F293B0E8.jpeg",
+        "images/zimmer_zweiter_stock/zimmer_zweiter_stock/rest/F3314D14-867D-45E6-8D77-E497B7300025.jpeg"
+      ]
+    },
+    {
+      "name": "Prag",
+      "size": 28,
+      "price": 440,
+      "status": "belegt",
+      "balkon": false,
+      "hinweis": "",
+      "photos": [
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/WhatsApp Image 2024-01-22 at 13.03.40 (1).jpeg",
+        "images/Fotos_Wohnungen/Fotos_Wohnungen/WhatsApp Image 2024-01-22 at 13.03.40 (2).jpeg"
+      ]
+    }
+  ]
+}
