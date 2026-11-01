@@ -1,0 +1,9 @@
+# Zwischenspeicher von calendar.php (wird auf dem Server automatisch angelegt)
+cache/
+
+# Systemdateien
+.DS_Store
+Thumbs.db
+
+# Node (nur für die Tests)
+node_modules/

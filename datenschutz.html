@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Datenschutzerklärung — Akademische Sängerschaft Gothia zu Graz</title>
+    <meta name="description" content="Datenschutzerklärung der Akademischen Sängerschaft Gothia zu Graz: Hosting, Cookies, Google Analytics, eingebundene Dienste und deine Rechte.">
+    <meta name="theme-color" content="#0f2619">
+    <link rel="canonical" href="https://www.gothia-graz.at/datenschutz.html">
+    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Akademische Sängerschaft Gothia zu Graz">
+    <meta property="og:title" content="Datenschutzerklärung — Akademische Sängerschaft Gothia zu Graz">
+    <meta property="og:description" content="Datenschutzerklärung der Akademischen Sängerschaft Gothia zu Graz.">
+    <meta property="og:url" content="https://www.gothia-graz.at/datenschutz.html">
+    <meta property="og:image" content="https://www.gothia-graz.at/assets/img/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="de_AT">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preload" href="assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/css/site.css?v=20261101">
+    <script src="consent.js?v=20261101" defer></script>
+    <style>
+        /* Rechtstexte — seitenspezifische Ergänzungen (Impressum & Datenschutz) */
+        .page-hero .legal-mark { position: absolute; z-index: -1; right: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter))); bottom: -.22em; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(15rem, 25vw, 23rem); line-height: 1; color: var(--gold-light); opacity: .085; pointer-events: none; user-select: none; }
+        .legal { padding-block: clamp(3.5rem, 7vw, 6rem) clamp(4.5rem, 9vw, 7.5rem); }
+        .legal-layout { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: clamp(2.5rem, 6vw, 5.5rem); align-items: start; }
+        .legal-layout .prose { margin-inline: 0; }
+        .legal-aside { position: sticky; top: calc(var(--header-h) + 2rem); }
+        @media (max-height: 720px) { .legal-aside { position: static; } }
+        .legal-card { position: relative; padding: 1.75rem 1.6rem 1.5rem; border-radius: var(--radius-lg); background: var(--white); border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+        .legal-card::before { content: ""; position: absolute; left: 1.6rem; right: 1.6rem; top: -1px; height: 4px; border-radius: 0 0 4px 4px; background: var(--band-h); }
+        .legal-card-label { font-family: var(--sans); font-size: .74rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); margin-bottom: .75rem; }
+        .toc { list-style: none; counter-reset: toc; }
+        .toc a { display: flex; gap: .8rem; align-items: baseline; padding: .55rem 0; border-top: 1px solid var(--line); font-size: .92rem; font-weight: 600; line-height: 1.4; color: var(--ink-soft); text-decoration: none; transition: color .2s; }
+        .toc li:first-child a { border-top: 0; padding-top: .1rem; }
+        .toc a:hover { color: var(--green-ink); }
+        .toc .n { flex: none; min-width: 1.1rem; font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--gold-ink); font-variant-numeric: lining-nums; }
+        .legal-card-foot { margin-top: 1.1rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+        .legal-card-foot p { font-size: .86rem; line-height: 1.55; color: var(--ink-mute); margin-bottom: .9rem; }
+        .legal-card-foot .btn { width: 100%; }
+        .prose .callout h2 { font-size: clamp(1.35rem, 2vw, 1.6rem); margin-bottom: .6rem; }
+        .prose .callout p { margin: 0; }
+        .prose .legal-actions { margin: 1.25rem 0 1.5rem; }
+        .btn--inline { min-height: 0; padding: .14rem .75rem .18rem .6rem; gap: .35rem; font-size: .84rem; vertical-align: baseline; white-space: nowrap; }
+        .btn--inline .icon { width: .95em; height: .95em; }
+        .btn--inline:hover { transform: none; box-shadow: none; }
+        @media (max-width: 720px) {
+            .page-hero .legal-mark { font-size: 12rem; right: -.5rem; opacity: .07; }
+        }
+        @media (max-width: 960px) {
+            .legal-layout { grid-template-columns: 1fr; }
+            .legal-aside { position: static; max-width: 760px; }
+            .toc { columns: 2; column-gap: 2rem; }
+            .toc li { break-inside: avoid; }
+            .toc li:first-child a { border-top: 1px solid var(--line); padding-top: .55rem; }
+            .legal-card-foot { display: none; }
+        }
+        @media (max-width: 560px) {
+            .legal-card { padding: 1.4rem 1.25rem 1.1rem; }
+            .legal-card::before { left: 1.25rem; right: 1.25rem; }
+            .toc { columns: 1; }
+            .toc li:first-child a { border-top: 0; padding-top: .1rem; }
+            .toc a { padding: .45rem 0; }
+            .prose .callout { padding: 1.25rem 1.2rem 1.3rem; }
+        }
+    </style>
+</head>
+<body data-header="overlay">
+
+<!-- Icon-Sprite -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m11 19-7-7 7-7"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M16 2.5v4M8 2.5v4M3 10h18"/></symbol>
+    <symbol id="i-calendar-plus" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M16 2.5v4M8 2.5v4M3 10h18M12 13.5v5M9.5 16h5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3.2 2"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M19.5 10c0 5.2-7.5 12-7.5 12S4.5 15.2 4.5 10a7.5 7.5 0 0 1 15 0Z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5.5l11-2v12.5"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M21.5 2.5 10.5 13.5"/><path d="m21.5 2.5-7 19-4-8-8-4 19-7Z"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 9.5 12 4.5 2 9.5l10 5 10-5Z"/><path d="M6 11.5v5c3.5 3 8.5 3 12 0v-5"/><path d="M22 9.5v5"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 2.5a9.5 9.5 0 0 0 0 19c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2a1.7 1.7 0 0 1 1.2-2.9h2.1a5 5 0 0 0 5-5c0-4.5-4.3-8.2-9.5-8.2Z"/><circle cx="7.5" cy="11" r="1.1"/><circle cx="10" cy="7" r="1.1"/><circle cx="15" cy="7" r="1.1"/><circle cx="17.5" cy="11" r="1.1"/></symbol>
+    <symbol id="i-tram" viewBox="0 0 24 24"><rect x="5" y="6" width="14" height="13" rx="3"/><path d="M5 13h14M9 2.5h6M12 2.5V6M8.5 22l1.5-3M15.5 22 14 19"/><path d="M9 16h.01M15 16h.01"/></symbol>
+    <symbol id="i-bike" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="3.5"/><circle cx="18.5" cy="17" r="3.5"/><path d="M5.5 17 9 9.5h6.5L18.5 17M9 9.5 12 17h-6.5M14 6h2.5l-1 3.5"/></symbol>
+    <symbol id="i-train" viewBox="0 0 24 24"><rect x="4.5" y="3" width="15" height="15" rx="3.5"/><path d="M4.5 11h15M12 3v8M8 22l2-4M16 22l-2-4"/><path d="M8.5 14.5h.01M15.5 14.5h.01"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M9.5 22v-7h5v7"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="m9 4-6 2.5v14L9 18l6 2.5 6-2.5V4l-6 2.5L9 4Z"/><path d="M9 4v14M15 6.5v14"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7M10 14 21 3M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></symbol>
+    <symbol id="i-cookie" viewBox="0 0 24 24"><path d="M12 2.5a9.5 9.5 0 1 0 9.5 9.5 4 4 0 0 1-5-4.5 4 4 0 0 1-4.5-5Z"/><path d="M8.5 9h.01M15.5 15h.01M11.5 13h.01M10.5 17h.01M7 14h.01"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5L7 4.5Z" fill="currentColor"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 2 13.8 10.2 22 12l-8.2 1.8L12 22l-1.8-8.2L2 12l8.2-1.8L12 2Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-spotify" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.62.62 0 0 1-.86.2c-2.35-1.43-5.3-1.76-8.79-.96a.62.62 0 1 1-.28-1.21c3.81-.87 7.08-.5 9.72 1.11.3.18.39.56.21.86Zm1.22-2.73a.78.78 0 0 1-1.07.26c-2.69-1.65-6.79-2.13-9.97-1.17a.78.78 0 1 1-.45-1.49c3.63-1.1 8.15-.57 11.24 1.33.37.22.48.7.25 1.07Zm.1-2.84C14.7 8.91 9.37 8.73 6.3 9.66a.94.94 0 1 1-.54-1.8c3.53-1.07 9.4-.86 13.1 1.34a.94.94 0 0 1-.96 1.62Z"/></symbol>
+</svg>
+
+<a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+<!-- ═════════ Kopfzeile ═════════ -->
+<header class="site-header is-over-hero" id="siteHeader">
+    <div class="container header-inner">
+        <a href="index.html" class="brand" aria-label="Sängerschaft Gothia — zur Startseite">
+            <span class="brand-band" aria-hidden="true"></span>
+            <span class="brand-text">
+                <span class="brand-name">Gothia</span>
+                <span class="brand-sub">Akad. Sängerschaft · Graz</span>
+            </span>
+        </a>
+        <nav class="nav" aria-label="Hauptnavigation">
+            <ul class="nav-links">
+                <li><a href="index.html#ueber-uns">Über uns</a></li>
+                <li><a href="index.html#chor">Chor</a></li>
+                <li><a href="index.html#termine">Termine</a></li>
+                <li><a href="index.html#gothenhaus">Gothenhaus</a></li>
+                <li><a href="index.html#geschichte">Geschichte</a></li>
+                <li><a href="index.html#kontakt">Kontakt</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="zimmer.html" class="btn btn--ghost btn--sm">Freie Zimmer</a>
+                <a href="index.html#mitmachen" class="btn btn--gold btn--sm">Mitglied werden</a>
+                <button class="menu-toggle" id="menuToggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation" role="dialog" aria-modal="true">
+    <ul>
+        <li><a href="index.html#ueber-uns"><small>01</small>Über uns</a></li>
+        <li><a href="index.html#chor"><small>02</small>Chor</a></li>
+        <li><a href="index.html#termine"><small>03</small>Termine</a></li>
+        <li><a href="index.html#gothenhaus"><small>04</small>Gothenhaus</a></li>
+        <li><a href="index.html#geschichte"><small>05</small>Geschichte</a></li>
+        <li><a href="index.html#kontakt"><small>06</small>Kontakt</a></li>
+    </ul>
+    <div class="btn-row">
+        <a href="index.html#mitmachen" class="btn btn--gold">Mitglied werden</a>
+        <a href="zimmer.html" class="btn btn--ghost-light">Freie Zimmer</a>
+    </div>
+    <div class="mobile-nav-foot">Leonhardstraße 27, 8010 Graz · <a href="mailto:info@gothia-graz.at">info@gothia-graz.at</a></div>
+</div>
+
+<main id="inhalt">
+
+<!-- ═════════ Seitenkopf ═════════ -->
+<section class="page-hero" id="top" aria-labelledby="page-title">
+    <span class="legal-mark" aria-hidden="true">§</span>
+    <div class="container">
+        <nav aria-label="Brotkrümelnavigation">
+            <ol class="breadcrumb">
+                <li><a href="index.html">Startseite</a></li>
+                <li aria-current="page">Datenschutz</li>
+            </ol>
+        </nav>
+        <p class="eyebrow">Rechtliches</p>
+        <h1 id="page-title">Datenschutz&shy;erklärung</h1>
+        <p class="lead">Welche Daten beim Besuch dieser Website verarbeitet werden, wozu wir sie nutzen — und welche Rechte du hast.</p>
+        <p class="meta-pill"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg> Stand: November 2026</p>
+    </div>
+</section>
+
+<!-- ═════════ Inhalt ═════════ -->
+<div class="section section--paper legal">
+    <div class="container legal-layout">
+        <aside class="legal-aside">
+            <div class="legal-card">
+                <nav aria-labelledby="toc-title">
+                    <p class="legal-card-label" id="toc-title">Inhalt</p>
+                    <ol class="toc">
+                        <li><a href="#verantwortlicher"><span class="n">1</span>Verantwortlicher</a></li>
+                        <li><a href="#hosting"><span class="n">2</span>Hosting &amp; Server-Logfiles</a></li>
+                        <li><a href="#cookies"><span class="n">3</span>Cookies &amp; Einwilligung</a></li>
+                        <li><a href="#google-analytics"><span class="n">4</span>Google Analytics</a></li>
+                        <li><a href="#schriftarten"><span class="n">5</span>Schriftarten</a></li>
+                        <li><a href="#dienste-dritter"><span class="n">6</span>Eingebundene Dienste Dritter</a></li>
+                        <li><a href="#kontaktaufnahme"><span class="n">7</span>Kontaktaufnahme</a></li>
+                        <li><a href="#rechte"><span class="n">8</span>Deine Rechte</a></li>
+                        <li><a href="#stand"><span class="n"></span>Stand</a></li>
+                    </ol>
+                </nav>
+                <div class="legal-card-foot">
+                    <p>Deine Auswahl zu Cookies und eingebetteten Inhalten kannst du jederzeit ändern.</p>
+                    <button type="button" class="btn btn--forest btn--sm" data-cookie-settings><svg class="icon" aria-hidden="true"><use href="#i-cookie"/></svg> Cookie-Einstellungen</button>
+                </div>
+            </div>
+        </aside>
+
+        <article class="prose">
+            <div class="callout">
+                <h2 id="auf-einen-blick">Datenschutz auf einen Blick</h2>
+                <p>Der Schutz deiner personenbezogenen Daten ist uns wichtig. Nachfolgend informieren wir dich darüber, welche Daten beim Besuch dieser Website verarbeitet werden und welche Rechte du hast. Statistik-Dienste (Google Analytics) werden ausschließlich nach deiner <strong>ausdrücklichen Einwilligung</strong> geladen.</p>
+            </div>
+
+            <h2 id="verantwortlicher">1. Verantwortlicher</h2>
+            <p><strong>Akademische Sängerschaft Gothia zu Graz</strong></p>
+            <p>Leonhardstraße 27, A-8010 Graz<br>
+            E-Mail: <a href="mailto:info@gothia-graz.at">info@gothia-graz.at</a><br>
+            ZVR: 47 88 0 26 37</p>
+
+            <h2 id="hosting">2. Hosting &amp; Server-Logfiles</h2>
+            <p>Diese Website wird bei der <strong>World4You Internet Services GmbH</strong>, Hafenstraße 35, 4020 Linz, Österreich, gehostet. Beim Aufruf der Seiten werden vom Server automatisch Zugriffsdaten in sogenannten Logfiles verarbeitet:</p>
+            <ul>
+                <li>IP-Adresse des anfragenden Geräts</li>
+                <li>Datum und Uhrzeit des Zugriffs</li>
+                <li>aufgerufene Seite/Datei, Referrer</li>
+                <li>verwendeter Browser und Betriebssystem</li>
+            </ul>
+            <p>Diese Verarbeitung dient der technischen Auslieferung, Stabilität und Sicherheit der Website. Rechtsgrundlage ist unser berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO). Die Logfiles werden nur für die technische Wartung und Kontrolle ausgewertet und nicht mit anderen Daten zusammengeführt.</p>
+
+            <h2 id="cookies">3. Cookies &amp; Einwilligung</h2>
+            <p>Für den reinen Betrieb der Website setzen wir keine Tracking-Cookies. Statistik-Cookies (Google Analytics) werden <strong>erst gesetzt, nachdem du im Cookie-Hinweis auf „Akzeptieren“ geklickt hast</strong>. Wählst du „Nur notwendige“, wird Google Analytics nicht geladen.</p>
+            <p>Deine Auswahl wird lokal in deinem Browser (localStorage) gespeichert, damit der Hinweis nicht bei jedem Besuch erneut erscheint. Du kannst deine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen oder ändern:</p>
+            <p class="legal-actions"><button type="button" class="btn btn--forest" data-cookie-settings><svg class="icon" aria-hidden="true"><use href="#i-cookie"/></svg> Cookie-Einstellungen öffnen</button></p>
+            <p>Rechtsgrundlage für einwilligungspflichtige Cookies ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO).</p>
+
+            <h2 id="google-analytics">4. Google Analytics</h2>
+            <p>Nach deiner Einwilligung nutzen wir Google Analytics 4, einen Webanalysedienst der <strong>Google Ireland Limited</strong>, Gordon House, Barrow Street, Dublin 4, Irland. Google Analytics verwendet Cookies (u. a. <em>_ga</em>, <em>_ga_&lt;ID&gt;</em>), die eine Analyse der Nutzung der Website ermöglichen.</p>
+            <p><strong>Zweck:</strong> Reichweitenmessung und Verständnis, wie unsere Seite genutzt wird (z. B. welche Zimmer/Seiten aufgerufen werden), um das Angebot zu verbessern.</p>
+            <p><strong>Datenübermittlung:</strong> Dabei können Daten an die Google LLC in den USA übermittelt werden. Google stützt sich hierbei auf das EU-US Data Privacy Framework sowie auf Standardvertragsklauseln.</p>
+            <p><strong>Widerruf:</strong> über die <button type="button" class="btn btn--ghost btn--inline" data-cookie-settings><svg class="icon" aria-hidden="true"><use href="#i-cookie"/></svg>Cookie-Einstellungen</button>, durch Löschen der Cookies im Browser oder mit dem <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google-Analytics-Deaktivierungs-Add-on</a>.</p>
+            <p>Rechtsgrundlage: deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Weitere Informationen in der <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Google</a>.</p>
+
+            <h2 id="schriftarten">5. Schriftarten</h2>
+            <p>Die verwendeten Schriftarten (Newsreader, Manrope) werden <strong>lokal von unserem eigenen Server</strong> ausgeliefert. Es findet dabei <strong>keine</strong> Verbindung zu Google-Servern und keine Übermittlung deiner IP-Adresse an Google statt.</p>
+
+            <h2 id="dienste-dritter">6. Eingebundene Dienste Dritter</h2>
+            <p>Auf der Startseite werden <strong>Google Maps</strong> (Karte) und <strong>Spotify</strong> (Musik-Player) erst geladen, <strong>nachdem du im Cookie-Hinweis auf „Akzeptieren“ geklickt hast</strong> — oder, falls du das nicht getan hast, einzeln durch Klick auf „Karte laden“ bzw. „Player laden“. Ohne diese Einwilligung werden keine Daten an Google oder Spotify übertragen (Art. 6 Abs. 1 lit. a DSGVO). Beim Laden werden Daten (u. a. deine IP-Adresse) an den jeweiligen Anbieter übermittelt:</p>
+            <ul>
+                <li><strong>Google Maps</strong> (Kartenanzeige) — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutz Google</a></li>
+                <li><strong>Spotify</strong> (Musik-Player) — <a href="https://www.spotify.com/at/legal/privacy-policy/" target="_blank" rel="noopener">Datenschutz Spotify</a></li>
+            </ul>
+            <p>Die Termine werden von unserem eigenen Webserver serverseitig (über calendar.php) aus unserem Google-Kalender abgerufen und über unsere Domain ausgeliefert, sodass dabei keine Daten von dir an Google übermittelt werden.</p>
+
+            <h2 id="kontaktaufnahme">7. Kontaktaufnahme</h2>
+            <p>Über das Kontaktformular wird deine Anfrage in deinem E-Mail-Programm vorbereitet und per E-Mail an uns gesendet. Die von dir übermittelten Angaben verarbeiten wir ausschließlich zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b bzw. lit. f DSGVO).</p>
+
+            <h2 id="rechte">8. Deine Rechte</h2>
+            <p>Dir stehen gegenüber uns folgende Rechte hinsichtlich deiner personenbezogenen Daten zu: Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Widerspruch gegen die Verarbeitung, Datenübertragbarkeit sowie der Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft.</p>
+            <p>Wende dich dazu an <a href="mailto:info@gothia-graz.at">info@gothia-graz.at</a>. Außerdem hast du ein Beschwerderecht bei der Aufsichtsbehörde:<br>
+            <strong>Österreichische Datenschutzbehörde</strong>, Barichgasse 40–42, 1030 Wien, <a href="mailto:dsb@dsb.gv.at">dsb@dsb.gv.at</a>.</p>
+
+            <h2 id="stand">Stand</h2>
+            <p>November 2026</p>
+        </article>
+    </div>
+</div>
+
+</main>
+
+<!-- ═════════ Fußzeile ═════════ -->
+<footer class="site-footer">
+    <div class="container">
+        <p class="footer-motto">Gaudeamus igitur, <span>juvenes dum sumus.</span></p>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="brand" aria-label="Sängerschaft Gothia — zur Startseite">
+                    <span class="brand-band" aria-hidden="true"></span>
+                    <span class="brand-text"><span class="brand-name">Gothia</span><span class="brand-sub">Akad. Sängerschaft · Graz</span></span>
+                </a>
+                <p class="footer-about">Ein Bund fürs Leben — verwurzelt in Geschichte und Tradition, geleitet von Bundesbrüderlichkeit und Musik seit 1863 in Graz.</p>
+                <a class="footer-social" href="https://open.spotify.com/intl-de/artist/5IpsNPWRsuf9EUHvxX5TIH" target="_blank" rel="noopener"><svg class="icon"><use href="#i-spotify"/></svg> Gothia auf Spotify</a>
+            </div>
+            <div class="footer-col">
+                <h4>Entdecken</h4>
+                <ul>
+                    <li><a href="index.html#ueber-uns">Über uns</a></li>
+                    <li><a href="index.html#chor">Chor</a></li>
+                    <li><a href="index.html#termine">Termine</a></li>
+                    <li><a href="index.html#geschichte">Geschichte</a></li>
+                    <li><a href="index.html#mitmachen">Mitglied werden</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Gothenhaus</h4>
+                <ul>
+                    <li><a href="index.html#gothenhaus">Wohnen</a></li>
+                    <li><a href="zimmer.html">Freie Zimmer</a></li>
+                    <li><a href="index.html#kontakt">Kontakt</a></li>
+                    <li><address>Leonhardstraße 27<br>8010 Graz</address></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Rechtliches</h4>
+                <ul>
+                    <li><a href="impressum.html">Impressum</a></li>
+                    <li><a href="datenschutz.html" aria-current="page">Datenschutz</a></li>
+                    <li><button type="button" data-cookie-settings>Cookie-Einstellungen</button></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© <span data-year>2026</span> Akademische Sängerschaft Gothia zu Graz</p>
+            <p><em>Vivat, crescat, floreat!</em></p>
+        </div>
+    </div>
+</footer>
+
+<button class="to-top" id="toTop" type="button" aria-label="Nach oben"><svg class="icon"><use href="#i-arrow-up"/></svg></button>
+
+<script src="assets/js/site.js?v=20261101" defer></script>
+</body>
+</html>

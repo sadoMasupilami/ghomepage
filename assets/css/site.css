@@ -224,6 +224,10 @@ strong { font-weight: 700; }
 .nav-actions { display: flex; align-items: center; gap: .6rem; }
 .site-header.is-over-hero .btn--ghost { --btn-fg: #fff; --btn-bd: rgba(255, 255, 255, .45); }
 .site-header.is-over-hero .btn--ghost:hover { --btn-bg: rgba(255, 255, 255, .12); --btn-bd: #fff; }
+.nav-actions .btn[aria-current="page"] { --btn-bd: var(--gold); }
+.site-header.is-over-hero .nav-actions .btn[aria-current="page"] { --btn-bd: var(--gold-light); }
+.mobile-nav .btn[aria-current="page"] { --btn-bd: var(--gold-light); }
+.footer-col a[aria-current="page"] { color: #fff; }
 
 .menu-toggle {
   display: none; position: relative; width: 46px; height: 46px; border: 1.5px solid currentColor; border-radius: 50%;
@@ -561,11 +565,11 @@ body.menu-open { overflow: hidden; }
   .termine-aside { position: static; }
 }
 @media (max-width: 560px) {
-  .event { grid-template-columns: 62px minmax(0, 1fr); gap: 1rem; padding-right: .5rem; }
+  .event { grid-template-columns: 62px minmax(0, 1fr) auto; gap: 1rem; padding-right: .5rem; align-items: start; }
   .event-date { width: 62px; }
   .event-date .d { font-size: 1.7rem; }
   .event-title { font-size: 1.2rem; }
-  .event-add { display: none; }
+  .event-add { width: 38px; height: 38px; margin-top: .2rem; }
   .skeleton { grid-template-columns: 62px 1fr; }
 }
 
@@ -697,7 +701,7 @@ body.menu-open { overflow: hidden; }
 .footer-col a, .footer-col button { color: rgba(255, 255, 255, .72); text-decoration: none; background: none; border: 0; padding: 0; text-align: left; transition: color .2s; }
 .footer-col a:hover, .footer-col button:hover { color: #fff; }
 .footer-col address { font-style: normal; line-height: 1.7; }
-.footer-social { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1rem; padding: .5rem .9rem .5rem .55rem; border-radius: var(--radius-pill); background: rgba(255, 255, 255, .06); color: #fff !important; font-weight: 600; font-size: .88rem; }
+.footer-social { display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; margin-top: 1rem; padding: .5rem .9rem .5rem .55rem; border-radius: var(--radius-pill); background: rgba(255, 255, 255, .06); color: #fff !important; font-weight: 600; font-size: .88rem; }
 .footer-social svg { width: 22px; height: 22px; color: #1ed760; }
 .footer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; margin-top: 3.5rem; padding-top: 1.75rem; border-top: 1px solid rgba(255, 255, 255, .1); font-size: .84rem; color: rgba(255, 255, 255, .5); }
 .footer-bottom p { margin: 0; }

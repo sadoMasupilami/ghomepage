@@ -92,7 +92,7 @@
             '<p>Wir nutzen <b>Google Analytics</b> (Statistik) sowie eingebettete Inhalte von ' +
             '<b>Google Maps</b> und <b>Spotify</b> — nur mit deiner Zustimmung. Mit „Akzeptieren“ ' +
             'werden diese geladen; andernfalls kannst du sie später einzeln per Klick laden. ' +
-            'Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>' +
+            'Mehr in der <a href="/datenschutz.html">Datenschutzerklärung</a>.</p>' +
             '<div class="btns">' +
             '<button type="button" class="reject">Nur notwendige</button>' +
             '<button type="button" class="accept">Akzeptieren</button>' +

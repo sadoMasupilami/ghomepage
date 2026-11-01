@@ -1,0 +1,142 @@
+# ==========================================================================
+#  Akademische Sängerschaft Gothia zu Graz — Server-Einstellungen (Apache 2.4)
+#
+#  Jeder Block steckt in <IfModule …>: Fehlt ein Modul beim Hoster, wird der
+#  Block einfach übersprungen, statt die ganze Seite mit „500“ lahmzulegen.
+#  Ausnahme sind wenige Kern-Direktiven, die Apache immer kennt.
+# ==========================================================================
+
+
+# ── Grundeinstellungen (Apache-Kern, immer verfügbar) ──────────────────────
+ErrorDocument 404 /404.html
+# Gesperrte Ordner (z. B. /images/ ohne Datei) zeigen dieselbe freundliche Seite
+ErrorDocument 403 /404.html
+AddDefaultCharset UTF-8
+
+# Keine automatischen Ordner-Listings. Auskommentiert, weil manche Hoster „Options“
+# in .htaccess verbieten (dann käme „500 Internal Server Error“ für die ganze Seite).
+# Zum Aktivieren die Raute entfernen und prüfen, ob die Seite noch lädt:
+# Options -Indexes
+
+<IfModule mod_dir.c>
+    DirectoryIndex index.html index.php
+</IfModule>
+
+
+# ── Dateitypen ────────────────────────────────────────────────────────────
+<IfModule mod_mime.c>
+    AddType image/webp                  .webp
+    AddType image/avif                  .avif
+    AddType image/svg+xml               .svg
+    AddType font/woff2                  .woff2
+    AddType font/woff                   .woff
+    AddType text/calendar               .ics
+    AddType application/manifest+json   .webmanifest
+    AddCharset utf-8 .css .js .mjs .json .svg .ics .xml .txt .webmanifest
+</IfModule>
+
+
+# ── Kein Zugriff auf interne Dateien und Ordner ──────────────────────────
+#    (README, Werkzeuge, Tests, Zwischenspeicher, Git-Daten, Python-Skripte)
+#    Antwort ist ein normales „Seite nicht gefunden“ – verrät nicht, dass es sie gibt.
+<IfModule mod_alias.c>
+    RedirectMatch 404 "(?i)^/(?:tools|tests|cache|node_modules|\.git[^/]*)(?:/|$)"
+    RedirectMatch 404 "(?i)/(?:\.git[^/]*|\.ds_store|thumbs\.db)$"
+    RedirectMatch 404 "(?i)\.(?:md|py|pyc|sh|log|bak|swp)$"
+</IfModule>
+# Ersatz, falls mod_alias fehlt (dann eben „403 Verboten“)
+<IfModule !mod_alias.c>
+    <IfModule mod_authz_core.c>
+        <FilesMatch "(?i)(?:^\.git|^\.ds_store$|^thumbs\.db$|\.(?:md|py|pyc|sh|log|bak|swp)$)">
+            Require all denied
+        </FilesMatch>
+    </IfModule>
+</IfModule>
+
+
+# ── Komprimierung ────────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml text/calendar
+        AddOutputFilterByType DEFLATE application/javascript text/javascript application/json
+        AddOutputFilterByType DEFLATE application/xml application/rss+xml application/manifest+json
+        AddOutputFilterByType DEFLATE image/svg+xml image/x-icon image/vnd.microsoft.icon
+    </IfModule>
+</IfModule>
+
+
+# ── Browser-Cache ────────────────────────────────────────────────────────
+#    Bilder & Schriften 30 Tage, CSS/JS 7 Tage, HTML immer frisch.
+#    Tipp: Wer ein Bild ersetzt, gibt der neuen Datei am besten einen neuen Namen,
+#    sonst sehen wiederkehrende Besucher bis zu 30 Tage lang noch das alte.
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    ExpiresByType image/webp                "access plus 30 days"
+    ExpiresByType image/avif                "access plus 30 days"
+    ExpiresByType image/jpeg                "access plus 30 days"
+    ExpiresByType image/png                 "access plus 30 days"
+    ExpiresByType image/gif                 "access plus 30 days"
+    ExpiresByType image/svg+xml             "access plus 30 days"
+    ExpiresByType image/x-icon              "access plus 30 days"
+    ExpiresByType image/vnd.microsoft.icon  "access plus 30 days"
+    ExpiresByType font/woff2                "access plus 30 days"
+    ExpiresByType font/woff                 "access plus 30 days"
+
+    ExpiresByType text/css                  "access plus 7 days"
+    ExpiresByType application/javascript    "access plus 7 days"
+    ExpiresByType text/javascript           "access plus 7 days"
+
+    ExpiresByType text/html                 "access plus 0 seconds"
+    ExpiresByType application/json          "access plus 0 seconds"
+    ExpiresByType application/xml           "access plus 1 day"
+    ExpiresByType text/xml                  "access plus 1 day"
+    ExpiresByType text/plain                "access plus 1 day"
+
+    # Zimmerliste: immer beim Server nachfragen (Änderungen sofort sichtbar)
+    <Files "zimmer.json">
+        ExpiresActive Off
+    </Files>
+    # Kalender: calendar.php setzt seine Cache-Header selbst (15 Min., passend zum Zwischenspeicher)
+    <Files "calendar.php">
+        ExpiresActive Off
+    </Files>
+</IfModule>
+
+
+# ── Sicherheit & Kopfzeilen ──────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Header unset X-Powered-By
+    Header always unset X-Powered-By
+
+    <Files "zimmer.json">
+        Header set Cache-Control "no-cache"
+    </Files>
+
+    # Komprimierte Antworten bekommen von Apache ein „-gzip“ an den ETag gehängt; ohne diese
+    # Korrektur würde der Browser nie „304 Not Modified“ erhalten und Dateien jedes Mal neu laden.
+    RequestHeader edit "If-None-Match" "^\"(.*)-gzip\"$" "\"$1\""
+</IfModule>
+
+
+# ── HTTPS / www (absichtlich AUS) ────────────────────────────────────────
+#    World4You leitet in der Regel schon selbst auf HTTPS um. Nur einschalten,
+#    wenn das nachweislich nicht passiert – sonst drohen Weiterleitungsschleifen.
+#
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} !=on
+#     RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+#     RewriteRule ^ https://www.gothia-graz.at%{REQUEST_URI} [R=301,L]
+#     RewriteCond %{HTTP_HOST} ^gothia-graz\.at$ [NC]
+#     RewriteRule ^ https://www.gothia-graz.at%{REQUEST_URI} [R=301,L]
+# </IfModule>
+#
+#    HSTS erst setzen, wenn HTTPS dauerhaft sicher funktioniert:
+# <IfModule mod_headers.c>
+#     Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
+# </IfModule>

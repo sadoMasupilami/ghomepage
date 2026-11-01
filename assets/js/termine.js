@@ -49,12 +49,30 @@
     }
 
     // Google liefert Beschreibungen teils mit HTML — hier zu reinem Text machen.
+    var ENTITIES = {
+        nbsp: ' ', amp: '&', lt: '<', gt: '>', quot: '"', apos: "'",
+        auml: 'ä', ouml: 'ö', uuml: 'ü', Auml: 'Ä', Ouml: 'Ö', Uuml: 'Ü', szlig: 'ß',
+        euro: '€', ndash: '–', mdash: '—', hellip: '…', bdquo: '„', ldquo: '“', rdquo: '”',
+        sbquo: '‚', lsquo: '‘', rsquo: '’', laquo: '«', raquo: '»', shy: ''
+    };
+    // In einem Durchgang dekodieren, damit „&amp;lt;“ zu „&lt;“ wird (und nicht zu „<“)
+    function decodeEntities(s) {
+        return s.replace(/&(#[xX][0-9a-fA-F]+|#\d+|[a-zA-Z]+);/g, function (m, n) {
+            if (n.charAt(0) !== '#') return Object.prototype.hasOwnProperty.call(ENTITIES, n) ? ENTITIES[n] : m;
+            var cp = /^#x/i.test(n) ? parseInt(n.slice(2), 16) : parseInt(n.slice(1), 10);
+            if (!(cp > 0 && cp <= 0x10FFFF) || (cp >= 0xD800 && cp <= 0xDFFF)) return m;
+            if (cp === 160) return ' ';
+            if (cp < 0x10000) return String.fromCharCode(cp);
+            cp -= 0x10000;
+            return String.fromCharCode(0xD800 + (cp >> 10), 0xDC00 + (cp & 0x3FF));
+        });
+    }
     function plainText(v) {
-        return String(v || '')
+        return decodeEntities(String(v || '')
+            .replace(/<!--[\s\S]*?-->/g, '')
             .replace(/<br\s*\/?>/gi, '\n')
-            .replace(/<\/(p|div|li)>/gi, '\n')
-            .replace(/<[^>]+>/g, '')
-            .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+            .replace(/<\/(p|div|li|h[1-6]|tr)>/gi, '\n')
+            .replace(/<\/?[a-zA-Z][^>]*>/g, ''))       // nur echte Tags — „a < b und c > d“ bleibt stehen
             .replace(/\n{3,}/g, '\n\n')
             .trim();
     }
@@ -78,14 +96,19 @@
         f.formatToParts(new Date(ms)).forEach(function (x) { p[x.type] = x.value; });
         return Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour % 24, +p.minute, +p.second) - ms;
     }
-    // Wanduhrzeit in einer Zone → Zeitpunkt (ms)
+    // Wanduhrzeit in einer Zone → Zeitpunkt (ms).
+    // Wie RFC 5545 (3.3.5): doppelte Uhrzeit bei der Umstellung im Herbst → die erste;
+    // nicht existierende Uhrzeit im Frühjahr → mit dem Offset vor der Lücke (02:30 → 03:30).
     function wallToInstant(w, tz) {
         tz = validTz(tz);
         var guess = Date.UTC(w.y, w.mo - 1, w.d, w.h, w.mi, w.s);
-        var off = tzOffset(tz, guess);
-        var t = guess - off;
-        var off2 = tzOffset(tz, t);
-        return off2 === off ? t : guess - off2;
+        var offBefore = tzOffset(tz, guess - DAY), offAfter = tzOffset(tz, guess + DAY);
+        if (offBefore === offAfter) return guess - offBefore;
+        var a = guess - offBefore, b = guess - offAfter;
+        var aOk = a + tzOffset(tz, a) === guess, bOk = b + tzOffset(tz, b) === guess;
+        if (aOk && bOk) return Math.min(a, b);
+        if (bOk) return b;
+        return a;
     }
     // Zeitpunkt → Kalenderdatum in Wien (YYYY-MM-DD)
     function dayKeyOfInstant(ms) {
@@ -122,15 +145,18 @@
 
     function parseRRule(v) {
         var r = {};
-        String(v).split(';').forEach(function (part) {
+        // Regelteile sind laut RFC unabhängig von Groß-/Kleinschreibung („freq=weekly“)
+        String(v).trim().toUpperCase().split(';').forEach(function (part) {
             var eq = part.indexOf('=');
-            if (eq > 0) r[part.slice(0, eq).toUpperCase()] = part.slice(eq + 1);
+            if (eq > 0) r[part.slice(0, eq).trim()] = part.slice(eq + 1).trim();
         });
+        var count = r.COUNT ? parseInt(r.COUNT, 10) : NaN;
         return {
             freq: r.FREQ,
             interval: Math.max(1, parseInt(r.INTERVAL, 10) || 1),
-            count: r.COUNT ? parseInt(r.COUNT, 10) : null,
+            count: isNaN(count) ? null : count,
             until: r.UNTIL ? parseDate(r.UNTIL, {}) : null,
+            wkst: r.WKST && WD.indexOf(r.WKST) >= 0 ? WD.indexOf(r.WKST) : 1,   // Wochenbeginn, Standard Montag
             byday: r.BYDAY ? r.BYDAY.split(',').map(function (s) {
                 var mm = /^([+-]?\d{1,2})?(SU|MO|TU|WE|TH|FR|SA)$/.exec(s.trim().toUpperCase());
                 return mm ? { n: mm[1] ? parseInt(mm[1], 10) : 0, wd: WD.indexOf(mm[2]) } : null;
@@ -148,13 +174,18 @@
             var p = parseLine(raw);
             if (!p) return;
             if (p.name === 'BEGIN') {
-                if (p.value.toUpperCase() === 'VEVENT' && !cur) { cur = { exdates: [], rrule: null }; depth = 0; }
+                if (p.value.trim().toUpperCase() === 'VEVENT') {
+                    if (cur) events.push(cur);   // fehlendes END:VEVENT → vorherigen Termin trotzdem übernehmen
+                    cur = { exdates: [], rrule: null }; depth = 0;
+                }
                 else if (cur) depth++;           // z. B. VALARM innerhalb des Termins
                 return;
             }
             if (p.name === 'END') {
-                if (cur && depth > 0) { depth--; return; }
-                if (cur && p.value.toUpperCase() === 'VEVENT') { events.push(cur); cur = null; }
+                var what = p.value.trim().toUpperCase();
+                var closes = what === 'VEVENT' || what === 'VCALENDAR';
+                if (cur && depth > 0 && !closes) { depth--; return; }
+                if (cur && closes) { events.push(cur); cur = null; depth = 0; }
                 return;
             }
             if (!cur || depth > 0) return;
@@ -178,6 +209,7 @@
                     break;
             }
         });
+        if (cur) events.push(cur);               // abgeschnittene Datei
         return events.filter(function (e) { return e.start; });
     }
 
@@ -213,11 +245,17 @@
         return out.sort(function (a, b) { return a - b; }).filter(function (d, i, a) { return a.indexOf(d) === i; });
     }
 
-    // Liefert die Startzeitpunkte (als Wanduhr-Objekte) aller Vorkommen bis windowEnd
-    function expandRule(start, rule, windowEndMs) {
+    // Liefert die Startzeitpunkte (als Wanduhr-Objekte) aller Vorkommen bis windowEnd.
+    // Optional windowStartMs: frühere Vorkommen werden nur noch mitgezählt (COUNT), nicht geliefert —
+    // so stoßen lange laufende Serien (z. B. wöchentlich seit Jahren) nicht an die MAX-Grenze.
+    function expandRule(start, rule, windowEndMs, windowStartMs) {
         var out = [];
         var s = start.w;
         var startWall = wallMs(s);
+        // Fenstergrenzen sind Zeitpunkte, verglichen wird in Wanduhrzeit → großzügiger Puffer
+        var lowMs = typeof windowStartMs === 'number' && isFinite(windowStartMs) ? windowStartMs - 2 * DAY : null;
+        // Ohne COUNT darf direkt zum Fensterbeginn gesprungen werden
+        var skip = lowMs !== null && rule.count === null && lowMs > startWall;
         var tz = start.allDay ? TZ : (start.utc ? 'UTC' : (start.tz || TZ));
         var untilMs = null;
         if (rule.until) {
@@ -235,24 +273,31 @@
             if (untilMs !== null && ms > untilMs) return false;
             if (rule.count !== null && n >= rule.count) return false;
             if (ms > windowEndMs + 2 * DAY) return false;
-            n++; out.push(w);
-            return n < MAX;
+            n++;
+            if (lowMs !== null && ms < lowMs) return true;   // vor dem Fenster: nur zählen
+            out.push(w);
+            return out.length < MAX;
         }
+        function firstStep(periods) { return skip && periods > 0 ? Math.floor(periods / rule.interval) * rule.interval : 0; }
         var t = { h: s.h, mi: s.mi, s: s.s };
         var go = true;
+        var lw = lowMs !== null ? msWall(lowMs) : null;
         if (rule.freq === 'DAILY') {
-            for (var i = 0; go && guard++ < 20000; i += rule.interval) {
+            for (var i = firstStep(Math.floor(((lowMs || 0) - startWall) / DAY)); go && guard++ < 20000; i += rule.interval) {
                 var w = msWall(startWall + i * DAY);
                 if (rule.bymonth && rule.bymonth.indexOf(w.mo) < 0) continue;
                 if (rule.byday && rule.byday.length && !rule.byday.some(function (b) { return b.wd === new Date(wallMs(w)).getUTCDay(); })) continue;
                 go = push(w);
             }
         } else if (rule.freq === 'WEEKLY') {
+            var wkst = rule.wkst >= 0 && rule.wkst <= 6 ? rule.wkst : 1;      // Wochenbeginn (WKST), Standard Montag
             var startDow = new Date(startWall).getUTCDay();
-            var weekStart = startWall - ((startDow + 6) % 7) * DAY;         // Montag (WKST=MO)
+            var weekStart = startWall - ((startDow - wkst + 7) % 7) * DAY;
             var days = rule.byday && rule.byday.length ? rule.byday.map(function (b) { return b.wd; }) : [startDow];
-            days = days.map(function (d) { return (d + 6) % 7; }).sort(function (a, b) { return a - b; });   // 0 = Montag
-            for (var wk = 0; go && guard++ < 5000; wk += rule.interval) {
+            days = days.map(function (d) { return (d - wkst + 7) % 7; })      // 0 = erster Tag der Woche
+                .sort(function (a, b) { return a - b; })
+                .filter(function (d, k, a) { return a.indexOf(d) === k; });
+            for (var wk = firstStep(Math.floor(((lowMs || 0) - weekStart) / (7 * DAY))); go && guard++ < 5000; wk += rule.interval) {
                 for (var j = 0; j < days.length && go; j++) {
                     var dw = msWall(weekStart + (wk * 7 + days[j]) * DAY);
                     dw.h = t.h; dw.mi = t.mi; dw.s = t.s;
@@ -262,7 +307,7 @@
                 if (weekStart + wk * 7 * DAY > windowEndMs + 8 * DAY) break;
             }
         } else if (rule.freq === 'MONTHLY') {
-            for (var mIdx = 0; go && guard++ < 3000; mIdx += rule.interval) {
+            for (var mIdx = firstStep(lw ? (lw.y - s.y) * 12 + (lw.mo - s.mo) - 1 : 0); go && guard++ < 3000; mIdx += rule.interval) {
                 var y = s.y + Math.floor((s.mo - 1 + mIdx) / 12);
                 var mo = ((s.mo - 1 + mIdx) % 12) + 1;
                 if (Date.UTC(y, mo - 1, 1) > windowEndMs + 2 * DAY) break;
@@ -271,7 +316,7 @@
                 for (var q = 0; q < md.length && go; q++) go = push({ y: y, mo: mo, d: md[q], h: t.h, mi: t.mi, s: t.s });
             }
         } else if (rule.freq === 'YEARLY') {
-            for (var yIdx = 0; go && guard++ < 300; yIdx += rule.interval) {
+            for (var yIdx = firstStep(lw ? lw.y - s.y - 1 : 0); go && guard++ < 300; yIdx += rule.interval) {
                 var yy = s.y + yIdx;
                 if (Date.UTC(yy, 0, 1) > windowEndMs + 2 * DAY) break;
                 var months = rule.bymonth && rule.bymonth.length ? rule.bymonth.slice().sort(function (a, b) { return a - b; }) : [s.mo];
@@ -309,16 +354,19 @@
 
             var starts;
             if (e.rrule && !e.recurrenceId) {
-                var exKeys = {};
+                var exKeys = {}, exDays = {};
                 e.exdates.forEach(function (x) {
+                    // EXDATE;VALUE=DATE bei einer Serie mit Uhrzeit nimmt den ganzen Tag aus
+                    if (x.allDay && !allDay) { exDays[dayKey(x.w)] = true; return; }
                     var xd = { allDay: allDay || x.allDay, w: x.w, utc: x.utc, tz: x.tz || start.tz };
                     exKeys[occurrenceKey(xd)] = true;
                 });
-                starts = expandRule(start, e.rrule, toMs).map(function (w) {
+                starts = expandRule(start, e.rrule, toMs, fromMs - Math.max(durMs, 0)).map(function (w) {
                     return { allDay: allDay, w: w, utc: start.utc, tz: start.tz };
                 }).filter(function (dt) {
                     var k = occurrenceKey(dt);
-                    return !exKeys[k] && !(e.uid && overrides[e.uid + '|' + k]);
+                    if (exKeys[k] || (e.uid && overrides[e.uid + '|' + k])) return false;
+                    return allDay || !exDays[start.utc ? dayKeyOfInstant(dateToMs(dt)) : dayKey(dt.w)];
                 });
             } else {
                 starts = [start];
@@ -385,15 +433,31 @@
         return loc.replace(/,\s*(Österreich|Austria)$/i, '');
     }
     function tagOf(title) {
+        var GESELLIG = { label: 'Geselligkeit', cls: '' };
         if (/convent/i.test(title)) return { label: 'Convent', cls: 'event-tag--muted' };
+        if (/(wein|bier|whisk(e)?y|schnaps|sekt|gin)probe|verkostung/i.test(title)) return GESELLIG;   // „Weinprobe“ ist keine Chorprobe
         if (/chor|probe|lieder|konzert|messe|sänger|singen/i.test(title)) return { label: 'Musik', cls: 'event-tag--gold' };
-        if (/kneipe|fest\b|fest |feier|ball|silvester|kommers/i.test(title) || /fest$/i.test(title)) return { label: 'Geselligkeit', cls: '' };
+        // Gedenkveranstaltungen nie als „Geselligkeit“ (Totengedenkfeier, Gräberbummel …)
+        if (/gedenk|trauer|toten|gräber|requiem|begräbnis|beerdigung|seelen/i.test(title)) return null;
+        if (/kneipe|fest\b|fest |feier|ball|silvester|kommers/i.test(title) || /fest$/i.test(title)) return GESELLIG;
         return null;
     }
 
     /* ── .ics für einen einzelnen Termin („Zum Kalender hinzufügen“) ── */
-    function icsEscape(s) { return String(s).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/([,;])/g, '\\$1'); }
+    function icsEscape(s) { return String(s).replace(/\\/g, '\\\\').replace(/\r\n?|\n/g, '\\n').replace(/([,;])/g, '\\$1'); }
     function utcStamp(ms) { return new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
+    // RFC 5545 3.1: Zeilen höchstens 75 Oktette (UTF-8), ohne Zeichen zu zerteilen
+    function foldLine(line) {
+        var out = '', len = 0;
+        for (var i = 0; i < line.length; i++) {
+            var c = line.charCodeAt(i), ch = line.charAt(i), bytes;
+            if (c >= 0xD800 && c <= 0xDBFF && i + 1 < line.length) { ch += line.charAt(++i); bytes = 4; }
+            else bytes = c < 0x80 ? 1 : c < 0x800 ? 2 : 3;
+            if (len + bytes > 75) { out += '\r\n '; len = 1; }
+            out += ch; len += bytes;
+        }
+        return out;
+    }
     function singleIcs(ev) {
         var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Akademische Saengerschaft Gothia zu Graz//Termine//DE', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
             'UID:' + (ev.uid || 'gothia') + '-' + ev.start + '@gothia-graz.at',
@@ -410,7 +474,7 @@
         if (ev.location) lines.push('LOCATION:' + icsEscape(ev.location));
         if (ev.description) lines.push('DESCRIPTION:' + icsEscape(ev.description));
         lines.push('END:VEVENT', 'END:VCALENDAR');
-        return lines.join('\r\n');
+        return lines.map(foldLine).join('\r\n') + '\r\n';   // jede Zeile endet mit CRLF, auch die letzte
     }
     function downloadIcs(ev) {
         var blob = new Blob([singleIcs(ev)], { type: 'text/calendar;charset=utf-8' });

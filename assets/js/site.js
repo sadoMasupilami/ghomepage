@@ -192,6 +192,7 @@
                     text = 'Derzeit alle Zimmer vergeben — frag gerne nach';
                     avail.classList.add('is-none');
                 }
+                if (free.length) avail.setAttribute('href', 'zimmer.html?filter=frei');
                 avail.querySelector('[data-avail-text]').textContent = text;
                 avail.hidden = false;
             })
