@@ -18,6 +18,12 @@
 
     var GA_ID = 'G-TDHNXVECH4';
     var KEY = 'gothia-consent';
+    // Link zur Datenschutzerklärung relativ zum Ort dieses Skripts: funktioniert auf der Domain,
+    // in Unterordnern (404-Seite) und in Vorschauen unter einem Unterpfad (z. B. GitHub Pages)
+    var PRIVACY_URL = (function () {
+        var src = document.currentScript && document.currentScript.src;
+        return src ? src.replace(/[^\/]*$/, '') + 'datenschutz.html' : '/datenschutz.html';
+    })();
     var gaLoaded = false;
     var banner = null;
     var lastFocus = null;
@@ -122,7 +128,7 @@
             '<p>Wir möchten <b>Google Analytics</b> (Statistik) nutzen und Inhalte von <b>Google Maps</b> und ' +
             '<b>Spotify</b> einbinden — beides nur mit deiner Zustimmung. Ohne Zustimmung kannst du Karte und ' +
             'Spotify-Player später auch einzeln per Klick laden. Mehr in der ' +
-            '<a href="/datenschutz.html">Datenschutzerklärung</a>.</p>' +
+            '<a href="' + PRIVACY_URL + '">Datenschutzerklärung</a>.</p>' +
             '<fieldset><legend>Einwilligungen</legend>' +
             '<label><input type="checkbox" name="stats"><span><strong>Statistik</strong>' +
             'Google Analytics hilft uns zu verstehen, welche Seiten gelesen werden.</span></label>' +
