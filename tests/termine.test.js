@@ -725,7 +725,7 @@ describe('singleIcs („Zum Kalender hinzufügen“)', () => {
         assert.deepEqual(prop(s, 'SUMMARY'), ['SUMMARY:Kneipe\\, Bier\\; Gesang \\\\ mehr']);
         assert.deepEqual(prop(s, 'LOCATION'), ['LOCATION:Gothenhaus\\, Graz']);
         assert.deepEqual(prop(s, 'DESCRIPTION'), ['DESCRIPTION:Erste Zeile\\nZweite Zeile mit Komma\\, Strichpunkt\\; und Backslash \\\\n']);
-        assert.match(prop(s, 'UID')[0], /^UID:abc@google\.com-\d+@gothia-graz\.at$/);
+        assert.match(prop(s, 'UID')[0], /^UID:abc-\d+@gothia-graz\.at$/);
 
         const [back] = T.buildOccurrences(T.parseICS(s), 0, ms('2100-01-01'));
         for (const k of ['title', 'location', 'description', 'start', 'end', 'allDay']) assert.deepEqual(back[k], ev[k], k);

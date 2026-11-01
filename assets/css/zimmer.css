@@ -14,11 +14,15 @@
 }
 
 /* ── Seitenkopf ── */
-.rooms-hero .page-hero-media img { object-position: 50% 42%; }
+/* Das Zimmer ist das Verkaufsargument → Foto deutlich sichtbar, Text bleibt durch den Verlauf lesbar */
+.rooms-hero .page-hero-media img { object-position: 50% 42%; opacity: .58; filter: none; }
 .rooms-hero::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: linear-gradient(90deg, rgba(10, 27, 18, .7) 0%, rgba(10, 27, 18, .25) 60%, rgba(10, 27, 18, .1) 100%),
-              linear-gradient(0deg, rgba(10, 27, 18, .55) 0%, rgba(10, 27, 18, 0) 40%);
+  background: linear-gradient(90deg, rgba(10, 27, 18, .9) 0%, rgba(10, 27, 18, .74) 45%, rgba(10, 27, 18, .3) 75%, rgba(10, 27, 18, .12) 100%),
+              linear-gradient(0deg, rgba(10, 27, 18, .6) 0%, rgba(10, 27, 18, 0) 40%);
+}
+@media (max-width: 960px) {
+  .rooms-hero::before { background: linear-gradient(0deg, rgba(10, 27, 18, .92) 0%, rgba(10, 27, 18, .8) 50%, rgba(10, 27, 18, .72) 100%); }
 }
 .rooms-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 360px); column-gap: 3rem; row-gap: 2.5rem; align-items: end; }
 .rooms-hero-copy { max-width: 720px; }
@@ -35,7 +39,7 @@
 }
 @keyframes availIn { from { opacity: 0; transform: translateY(14px); } }
 .avail-label { display: flex; align-items: center; gap: .55rem; margin: 0; font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-light); }
-.avail-label .pulse { width: 8px; height: 8px; border-radius: 50%; background: #6fd39a; box-shadow: 0 0 0 0 rgba(111, 211, 154, .6); animation: pulse 2.2s infinite; }
+.avail-label .pulse { width: 8px; height: 8px; border-radius: 50%; background: #6fd39a; box-shadow: 0 0 0 0 rgba(111, 211, 154, .6); animation: pulse 2.2s 2; }
 .avail-card.is-none .avail-label .pulse { background: var(--gold-light); animation: none; }
 .avail-body { display: flex; gap: 1.1rem; align-items: center; margin-top: 1rem; }
 .avail-num {
@@ -71,7 +75,7 @@
   padding: 1rem 0; margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
   border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line);
 }
-.filter-bar { display: flex; flex-wrap: wrap; gap: .5rem; }
+.filter-bar { position: relative; display: flex; flex-wrap: wrap; gap: .5rem; }
 .filter-chip {
   display: inline-flex; align-items: center; gap: .55rem; min-height: 42px; padding: .4rem .5rem .4rem .95rem;
   border-radius: var(--radius-pill); border: 1px solid var(--line-strong); background: rgba(251, 248, 241, .75);
@@ -121,7 +125,9 @@ html:not(.js) .rooms-grid { display: none; }
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(180deg, rgba(10, 27, 18, .32) 0%, rgba(10, 27, 18, 0) 30%, rgba(10, 27, 18, 0) 62%, rgba(10, 27, 18, .42) 100%);
 }
-.room-media:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+/* Fokus über dem Foto: doppelter Ring (dunkel + hell), auf jedem Bildinhalt sichtbar */
+.room-media:focus-visible { outline: none; }
+.room-media:focus-visible::after { z-index: 2; border-radius: inherit; box-shadow: inset 0 0 0 3px var(--gold-light), inset 0 0 0 6px var(--forest-900); }
 
 .room-badges { position: absolute; z-index: 2; left: .9rem; top: .9rem; right: .9rem; display: flex; flex-wrap: wrap; gap: .4rem; pointer-events: none; }
 .room-status, .room-note {
@@ -181,7 +187,11 @@ html:not(.js) .rooms-grid { display: none; }
 .room-price { flex: none; margin: 0; text-align: right; line-height: 1.1; }
 .room-price strong { display: block; font-family: var(--serif); font-size: 1.6rem; font-weight: 450; color: var(--forest-800); font-variant-numeric: lining-nums; white-space: nowrap; }
 .room-price small { display: block; margin-top: .2rem; font-size: .75rem; font-weight: 600; color: var(--ink-mute); }
-.room-price--ask strong { font-size: 1.15rem; font-style: italic; color: var(--ink-soft); }
+.room-price--ask strong { font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+/* Belegte Zimmer treten zurück, freie und reservierte bleiben farbig */
+.room-card.is-belegt .room-media img { filter: saturate(.55) brightness(.97); transition: filter .5s var(--ease), transform 1.2s var(--ease); }
+.room-card.is-belegt:hover .room-media img { filter: none; }
+.room-card.is-belegt .room-cta { color: var(--ink-soft); font-weight: 600; }
 .room-facts { list-style: none; display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.15rem; }
 .room-facts li {
   display: inline-flex; align-items: center; gap: .4rem; padding: .28rem .7rem .28rem .55rem; border-radius: var(--radius-pill);
@@ -200,7 +210,7 @@ html:not(.js) .rooms-grid { display: none; }
 .room-cta .icon { width: 1.1rem; height: 1.1rem; transition: transform .35s var(--ease); }
 .room-cta:hover { background: var(--forest-800); color: #fff; }
 .room-cta:hover .icon--arrow { transform: translateX(4px); }
-.room-cta:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+.room-cta:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
 
 /* Ladezustand */
 .room-skel { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-lg); background: var(--paper); border: 1px solid var(--line); padding-bottom: 1.4rem; }
@@ -226,8 +236,12 @@ html:not(.js) .rooms-grid { display: none; }
 @media (max-width: 1024px) { .rooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) {
   .rooms-grid { grid-template-columns: 1fr; }
-  .rooms-toolbar { padding: .9rem 0; }
-  .filter-chip { min-height: 40px; padding: .35rem .45rem .35rem .85rem; font-size: .84rem; }
+  .rooms-toolbar { padding: .9rem 0; display: block; }
+  .rooms-toolbar .rooms-count { margin-top: .6rem; }
+  .filter-chip { min-height: 40px; padding: .35rem .45rem .35rem .85rem; font-size: .84rem; flex: none; scroll-snap-align: start; }
+  /* Filter in einer wischbaren Zeile statt drei Reihen */
+  .filter-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding: 2px var(--gutter) 4px; scroll-snap-type: x proximity; scroll-padding-inline: var(--gutter); }
+  .filter-bar::-webkit-scrollbar { display: none; }
   .room-body { padding: 1.2rem 1.25rem 1.3rem; }
   .room-cta { padding: .95rem 1.25rem; }
   .room-card.is-frei .room-body::before { left: 1.25rem; right: 1.25rem; }
@@ -290,7 +304,7 @@ html:not(.js) .rooms-grid { display: none; }
   box-shadow: var(--shadow-lg);
 }
 .rooms-cta::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(60% 80% at 100% 0%, rgba(201, 162, 76, .2), transparent 60%), radial-gradient(60% 80% at 0% 100%, rgba(14, 107, 69, .45), transparent 60%); }
-.rooms-cta .staff { z-index: -1; opacity: .09; }
+.rooms-cta .staff { z-index: -1; opacity: .09; top: auto; bottom: -10%; height: 70%; }
 .rooms-cta .eyebrow { color: var(--gold-light); }
 .rooms-cta .h2 { color: #fff; }
 .rooms-cta .h2 em { display: block; color: var(--gold-light); }

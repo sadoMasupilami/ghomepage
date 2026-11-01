@@ -16,8 +16,8 @@
     <script>document.documentElement.classList.add('js');</script>
     <link rel="preload" href="/assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/assets/css/site.css?v=20261101">
-    <script src="/consent.js?v=20261101" defer></script>
+    <link rel="stylesheet" href="/assets/css/site.css?v=20261102">
+    <script src="/consent.js?v=20261102" defer></script>
     <style>
         /* ── 404 — seitenspezifisch ── */
         .nf {
@@ -141,13 +141,13 @@
 <!-- ═════════ Kopfzeile ═════════ -->
 <header class="site-header is-over-hero" id="siteHeader">
     <div class="container header-inner">
-        <a href="/index.html" class="brand" aria-label="Sängerschaft Gothia — zur Startseite">
+        <a href="/index.html" class="brand">
             <span class="brand-band" aria-hidden="true"></span>
             <span class="brand-text">
                 <span class="brand-name">Gothia</span>
                 <span class="brand-sub">Akad. Sängerschaft · Graz</span>
             </span>
-        </a>
+        <span class="sr-only"> – zur Startseite</span></a>
         <nav class="nav" aria-label="Hauptnavigation">
             <ul class="nav-links">
                 <li><a href="/index.html#ueber-uns">Über uns</a></li>
@@ -168,21 +168,21 @@
     </div>
 </header>
 
-<div class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation" role="dialog" aria-modal="true">
+<nav class="mobile-nav" id="mobileNav" aria-label="Menü">
     <ul>
-        <li><a href="/index.html#ueber-uns"><small>01</small>Über uns</a></li>
-        <li><a href="/index.html#chor"><small>02</small>Chor</a></li>
-        <li><a href="/index.html#termine"><small>03</small>Termine</a></li>
-        <li><a href="/index.html#gothenhaus"><small>04</small>Gothenhaus</a></li>
-        <li><a href="/index.html#geschichte"><small>05</small>Geschichte</a></li>
-        <li><a href="/index.html#kontakt"><small>06</small>Kontakt</a></li>
+        <li><a href="/index.html#ueber-uns"><small aria-hidden="true">01</small>Über uns</a></li>
+        <li><a href="/index.html#chor"><small aria-hidden="true">02</small>Chor</a></li>
+        <li><a href="/index.html#termine"><small aria-hidden="true">03</small>Termine</a></li>
+        <li><a href="/index.html#gothenhaus"><small aria-hidden="true">04</small>Gothenhaus</a></li>
+        <li><a href="/index.html#geschichte"><small aria-hidden="true">05</small>Geschichte</a></li>
+        <li><a href="/index.html#kontakt"><small aria-hidden="true">06</small>Kontakt</a></li>
     </ul>
     <div class="btn-row">
         <a href="/index.html#mitmachen" class="btn btn--gold">Mitglied werden</a>
         <a href="/zimmer.html" class="btn btn--ghost-light">Freie Zimmer</a>
     </div>
     <div class="mobile-nav-foot">Leonhardstraße 27, 8010 Graz · <a href="mailto:info@gothia-graz.at">info@gothia-graz.at</a></div>
-</div>
+</nav>
 
 <main id="inhalt">
 
@@ -228,13 +228,13 @@
         </div>
 
         <h1 id="nf-title">Da war wohl ein <em>falscher Ton</em> dabei.</h1>
-        <p class="lead">Diese Seite steht nicht (mehr) in unserem Liederbuch — vielleicht hat sich ein Link verstimmt. Kein Grund zur Sorge: Wir stimmen einfach neu an.</p>
+        <p class="lead">Diese Seite steht nicht (mehr) in unserem Liederbuch&nbsp;— vielleicht hat sich ein Link verstimmt. Kein Grund zur Sorge: Wir stimmen einfach neu an.</p>
         <div class="btn-row">
             <a href="/index.html" class="btn btn--gold btn--lg"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg> Zur Startseite</a>
             <a href="/index.html#termine" class="btn btn--ghost-light btn--lg"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg> Termine</a>
             <a href="/zimmer.html" class="btn btn--ghost-light btn--lg"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg> Freie Zimmer</a>
         </div>
-        <p class="nf-help" id="nfHelp">Kaputten Link entdeckt? <a id="nfReport" href="mailto:info@gothia-graz.at?subject=Defekter%20Link%20auf%20gothia-graz.at">Sag uns Bescheid</a> — wir bringen ihn wieder in Stimmung.</p>
+        <p class="nf-help" id="nfHelp">Kaputten Link entdeckt? <a id="nfReport" href="mailto:info@gothia-graz.at?subject=Defekter%20Link%20auf%20gothia-graz.at">Sag uns Bescheid</a>&nbsp;— wir bringen ihn wieder in Stimmung.</p>
     </div>
 </section>
 
@@ -243,18 +243,18 @@
 <!-- ═════════ Fußzeile ═════════ -->
 <footer class="site-footer">
     <div class="container">
-        <p class="footer-motto">Gaudeamus igitur, <span>juvenes dum sumus.</span></p>
+        <p class="footer-motto" lang="la">Gaudeamus igitur, <span>juvenes dum sumus.</span></p>
         <div class="footer-grid">
             <div class="footer-brand">
-                <a href="/index.html" class="brand" aria-label="Sängerschaft Gothia — zur Startseite">
+                <a href="/index.html" class="brand">
                     <span class="brand-band" aria-hidden="true"></span>
                     <span class="brand-text"><span class="brand-name">Gothia</span><span class="brand-sub">Akad. Sängerschaft · Graz</span></span>
-                </a>
-                <p class="footer-about">Ein Bund fürs Leben — verwurzelt in Geschichte und Tradition, geleitet von Bundesbrüderlichkeit und Musik seit 1863 in Graz.</p>
-                <a class="footer-social" href="https://open.spotify.com/intl-de/artist/5IpsNPWRsuf9EUHvxX5TIH" target="_blank" rel="noopener"><svg class="icon"><use href="#i-spotify"/></svg> Gothia auf Spotify</a>
+                <span class="sr-only"> – zur Startseite</span></a>
+                <p class="footer-about">Ein Bund fürs Leben&nbsp;— verwurzelt in Geschichte und Tradition, geleitet von Bundesbrüderlichkeit und Musik seit 1863 in Graz.</p>
+                <a class="footer-social" href="https://open.spotify.com/intl-de/artist/5IpsNPWRsuf9EUHvxX5TIH" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-spotify"/></svg> Gothia auf Spotify</a>
             </div>
             <div class="footer-col">
-                <h4>Entdecken</h4>
+                <h2 class="footer-col-title">Entdecken</h2>
                 <ul>
                     <li><a href="/index.html#ueber-uns">Über uns</a></li>
                     <li><a href="/index.html#chor">Chor</a></li>
@@ -264,7 +264,7 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Gothenhaus</h4>
+                <h2 class="footer-col-title">Gothenhaus</h2>
                 <ul>
                     <li><a href="/index.html#gothenhaus">Wohnen</a></li>
                     <li><a href="/zimmer.html">Freie Zimmer</a></li>
@@ -273,7 +273,7 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Rechtliches</h4>
+                <h2 class="footer-col-title">Rechtliches</h2>
                 <ul>
                     <li><a href="/impressum.html">Impressum</a></li>
                     <li><a href="/datenschutz.html">Datenschutz</a></li>
@@ -283,12 +283,12 @@
         </div>
         <div class="footer-bottom">
             <p>© <span data-year>2026</span> Akademische Sängerschaft Gothia zu Graz</p>
-            <p><em>Vivat, crescat, floreat!</em></p>
+            <p><em lang="la">Vivat, crescat, floreat!</em></p>
         </div>
     </div>
 </footer>
 
-<button class="to-top" id="toTop" type="button" aria-label="Nach oben"><svg class="icon"><use href="#i-arrow-up"/></svg></button>
+<button class="to-top" id="toTop" type="button" aria-label="Nach oben"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up"/></svg></button>
 
 <script>
     /* Gesuchte Adresse anzeigen und in die Fehlermeldung an uns übernehmen (nur als Text, nie als HTML) */
@@ -314,6 +314,6 @@
         }
     })();
 </script>
-<script src="/assets/js/site.js?v=20261101" defer></script>
+<script src="/assets/js/site.js?v=20261102" defer></script>
 </body>
 </html>

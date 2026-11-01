@@ -25,8 +25,8 @@
     <script>document.documentElement.classList.add('js');</script>
     <link rel="preload" href="assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="assets/css/site.css?v=20261101">
-    <script src="consent.js?v=20261101" defer></script>
+    <link rel="stylesheet" href="assets/css/site.css?v=20261102">
+    <script src="consent.js?v=20261102" defer></script>
     <style>
         /* Rechtstexte — seitenspezifische Ergänzungen (Impressum & Datenschutz) */
         .page-hero .legal-mark { position: absolute; z-index: -1; right: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter))); bottom: -.22em; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(15rem, 25vw, 23rem); line-height: 1; color: var(--gold-light); opacity: .085; pointer-events: none; user-select: none; }
@@ -113,13 +113,13 @@
 <!-- ═════════ Kopfzeile ═════════ -->
 <header class="site-header is-over-hero" id="siteHeader">
     <div class="container header-inner">
-        <a href="index.html" class="brand" aria-label="Sängerschaft Gothia — zur Startseite">
+        <a href="index.html" class="brand">
             <span class="brand-band" aria-hidden="true"></span>
             <span class="brand-text">
                 <span class="brand-name">Gothia</span>
                 <span class="brand-sub">Akad. Sängerschaft · Graz</span>
             </span>
-        </a>
+        <span class="sr-only"> – zur Startseite</span></a>
         <nav class="nav" aria-label="Hauptnavigation">
             <ul class="nav-links">
                 <li><a href="index.html#ueber-uns">Über uns</a></li>
@@ -140,21 +140,21 @@
     </div>
 </header>
 
-<div class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation" role="dialog" aria-modal="true">
+<nav class="mobile-nav" id="mobileNav" aria-label="Menü">
     <ul>
-        <li><a href="index.html#ueber-uns"><small>01</small>Über uns</a></li>
-        <li><a href="index.html#chor"><small>02</small>Chor</a></li>
-        <li><a href="index.html#termine"><small>03</small>Termine</a></li>
-        <li><a href="index.html#gothenhaus"><small>04</small>Gothenhaus</a></li>
-        <li><a href="index.html#geschichte"><small>05</small>Geschichte</a></li>
-        <li><a href="index.html#kontakt"><small>06</small>Kontakt</a></li>
+        <li><a href="index.html#ueber-uns"><small aria-hidden="true">01</small>Über uns</a></li>
+        <li><a href="index.html#chor"><small aria-hidden="true">02</small>Chor</a></li>
+        <li><a href="index.html#termine"><small aria-hidden="true">03</small>Termine</a></li>
+        <li><a href="index.html#gothenhaus"><small aria-hidden="true">04</small>Gothenhaus</a></li>
+        <li><a href="index.html#geschichte"><small aria-hidden="true">05</small>Geschichte</a></li>
+        <li><a href="index.html#kontakt"><small aria-hidden="true">06</small>Kontakt</a></li>
     </ul>
     <div class="btn-row">
         <a href="index.html#mitmachen" class="btn btn--gold">Mitglied werden</a>
         <a href="zimmer.html" class="btn btn--ghost-light">Freie Zimmer</a>
     </div>
     <div class="mobile-nav-foot">Leonhardstraße 27, 8010 Graz · <a href="mailto:info@gothia-graz.at">info@gothia-graz.at</a></div>
-</div>
+</nav>
 
 <main id="inhalt">
 
@@ -170,7 +170,7 @@
         </nav>
         <p class="eyebrow">Rechtliches</p>
         <h1 id="page-title">Datenschutz&shy;erklärung</h1>
-        <p class="lead">Welche Daten beim Besuch dieser Website verarbeitet werden, wozu wir sie nutzen — und welche Rechte du hast.</p>
+        <p class="lead">Welche Daten beim Besuch dieser Website verarbeitet werden, wozu wir sie nutzen&nbsp;— und welche Rechte du hast.</p>
         <p class="meta-pill"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg> Stand: November 2026</p>
     </div>
 </section>
@@ -224,13 +224,13 @@
             <p>Diese Verarbeitung dient der technischen Auslieferung, Stabilität und Sicherheit der Website. Rechtsgrundlage ist unser berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO). Die Logfiles werden nur für die technische Wartung und Kontrolle ausgewertet und nicht mit anderen Daten zusammengeführt.</p>
 
             <h2 id="cookies">3. Cookies &amp; Einwilligung</h2>
-            <p>Für den reinen Betrieb der Website setzen wir keine Tracking-Cookies. Statistik-Cookies (Google Analytics) werden <strong>erst gesetzt, nachdem du im Cookie-Hinweis auf „Akzeptieren“ geklickt hast</strong>. Wählst du „Nur notwendige“, wird Google Analytics nicht geladen.</p>
-            <p>Deine Auswahl wird lokal in deinem Browser (localStorage) gespeichert, damit der Hinweis nicht bei jedem Besuch erneut erscheint. Du kannst deine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen oder ändern:</p>
+            <p>Für den reinen Betrieb der Website setzen wir keine Tracking-Cookies. Statistik-Cookies (Google Analytics) werden <strong>erst gesetzt, nachdem du im Cookie-Hinweis der Kategorie „Statistik“ zugestimmt hast</strong> (Häkchen bei „Statistik“ und „Auswahl speichern“ oder „Alle akzeptieren“). Wählst du „Nur notwendige“, wird Google Analytics nicht geladen. Statistik und externe Medien (siehe Punkt&nbsp;6) kannst du getrennt voneinander erlauben.</p>
+            <p>Deine Auswahl wird lokal in deinem Browser (localStorage) gespeichert, damit der Hinweis nicht bei jedem Besuch erneut erscheint; sie bleibt gespeichert, bis du sie änderst oder deine Browserdaten löschst. Du kannst deine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen oder ändern:</p>
             <p class="legal-actions"><button type="button" class="btn btn--forest" data-cookie-settings><svg class="icon" aria-hidden="true"><use href="#i-cookie"/></svg> Cookie-Einstellungen öffnen</button></p>
             <p>Rechtsgrundlage für einwilligungspflichtige Cookies ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO).</p>
 
             <h2 id="google-analytics">4. Google Analytics</h2>
-            <p>Nach deiner Einwilligung nutzen wir Google Analytics 4, einen Webanalysedienst der <strong>Google Ireland Limited</strong>, Gordon House, Barrow Street, Dublin 4, Irland. Google Analytics verwendet Cookies (u. a. <em>_ga</em>, <em>_ga_&lt;ID&gt;</em>), die eine Analyse der Nutzung der Website ermöglichen.</p>
+            <p>Nach deiner Einwilligung nutzen wir Google Analytics 4, einen Webanalysedienst der <strong>Google Ireland Limited</strong>, Gordon House, Barrow Street, Dublin 4, Irland. Google Analytics verwendet Cookies (u. a. <em>_ga</em>, <em>_ga_&lt;ID&gt;</em>), die eine Analyse der Nutzung der Website ermöglichen. Diese Cookies werden nach spätestens 2&nbsp;Jahren automatisch gelöscht; bei einem Widerruf löschen wir sie sofort.</p>
             <p><strong>Zweck:</strong> Reichweitenmessung und Verständnis, wie unsere Seite genutzt wird (z. B. welche Zimmer/Seiten aufgerufen werden), um das Angebot zu verbessern.</p>
             <p><strong>Datenübermittlung:</strong> Dabei können Daten an die Google LLC in den USA übermittelt werden. Google stützt sich hierbei auf das EU-US Data Privacy Framework sowie auf Standardvertragsklauseln.</p>
             <p><strong>Widerruf:</strong> über die <button type="button" class="btn btn--ghost btn--inline" data-cookie-settings><svg class="icon" aria-hidden="true"><use href="#i-cookie"/></svg>Cookie-Einstellungen</button>, durch Löschen der Cookies im Browser oder mit dem <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google-Analytics-Deaktivierungs-Add-on</a>.</p>
@@ -240,15 +240,16 @@
             <p>Die verwendeten Schriftarten (Newsreader, Manrope) werden <strong>lokal von unserem eigenen Server</strong> ausgeliefert. Es findet dabei <strong>keine</strong> Verbindung zu Google-Servern und keine Übermittlung deiner IP-Adresse an Google statt.</p>
 
             <h2 id="dienste-dritter">6. Eingebundene Dienste Dritter</h2>
-            <p>Auf der Startseite werden <strong>Google Maps</strong> (Karte) und <strong>Spotify</strong> (Musik-Player) erst geladen, <strong>nachdem du im Cookie-Hinweis auf „Akzeptieren“ geklickt hast</strong> — oder, falls du das nicht getan hast, einzeln durch Klick auf „Karte laden“ bzw. „Player laden“. Ohne diese Einwilligung werden keine Daten an Google oder Spotify übertragen (Art. 6 Abs. 1 lit. a DSGVO). Beim Laden werden Daten (u. a. deine IP-Adresse) an den jeweiligen Anbieter übermittelt:</p>
+            <p>Auf der Startseite werden <strong>Google Maps</strong> (Karte) und <strong>Spotify</strong> (Musik-Player) erst geladen, <strong>nachdem du im Cookie-Hinweis der Kategorie „Externe Medien“ zugestimmt hast</strong>&nbsp;— oder, falls du das nicht getan hast, einzeln durch Klick auf „Karte laden“ bzw. „Player laden“. Ohne diese Einwilligung werden keine Daten an Google oder Spotify übertragen (Art. 6 Abs. 1 lit. a DSGVO). Beim Laden werden Daten (u. a. deine IP-Adresse) an den jeweiligen Anbieter übermittelt:</p>
             <ul>
-                <li><strong>Google Maps</strong> (Kartenanzeige) — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutz Google</a></li>
-                <li><strong>Spotify</strong> (Musik-Player) — <a href="https://www.spotify.com/at/legal/privacy-policy/" target="_blank" rel="noopener">Datenschutz Spotify</a></li>
+                <li><strong>Google Maps</strong> (Kartenanzeige), Google Ireland Limited, Gordon House, Barrow Street, Dublin&nbsp;4, Irland&nbsp;— <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutz Google</a></li>
+                <li><strong>Spotify</strong> (Musik-Player), Spotify AB, Regeringsgatan 19, 111&nbsp;53 Stockholm, Schweden&nbsp;— <a href="https://www.spotify.com/at/legal/privacy-policy/" target="_blank" rel="noopener">Datenschutz Spotify</a></li>
             </ul>
             <p>Die Termine werden von unserem eigenen Webserver serverseitig (über calendar.php) aus unserem Google-Kalender abgerufen und über unsere Domain ausgeliefert, sodass dabei keine Daten von dir an Google übermittelt werden.</p>
 
             <h2 id="kontaktaufnahme">7. Kontaktaufnahme</h2>
-            <p>Über das Kontaktformular wird deine Anfrage in deinem E-Mail-Programm vorbereitet und per E-Mail an uns gesendet. Die von dir übermittelten Angaben verarbeiten wir ausschließlich zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b bzw. lit. f DSGVO).</p>
+            <p>Über das Kontaktformular wird deine Anfrage in deinem E-Mail-Programm vorbereitet und per E-Mail an uns gesendet. Die von dir übermittelten Angaben verarbeiten wir ausschließlich zur Bearbeitung deiner Anfrage (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b bzw. lit.&nbsp;f DSGVO).</p>
+            <p>Anfragen zum Wohnen im Gothenhaus (Auswahl „Wohnen im Gothenhaus“ im Kontaktformular) sowie Bewerbungen und Zimmeranfragen auf der Seite „Zimmer“ werden an die Heimleitung des Studentenheims Gothenhaus (<a href="mailto:heimleitung@studentenheim-gothenhaus.at">heimleitung@studentenheim-gothenhaus.at</a>) gesendet und dort ausschließlich zur Bearbeitung deiner Anfrage bzw. Zimmerbewerbung verarbeitet (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO).</p>
 
             <h2 id="rechte">8. Deine Rechte</h2>
             <p>Dir stehen gegenüber uns folgende Rechte hinsichtlich deiner personenbezogenen Daten zu: Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Widerspruch gegen die Verarbeitung, Datenübertragbarkeit sowie der Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft.</p>
@@ -266,18 +267,18 @@
 <!-- ═════════ Fußzeile ═════════ -->
 <footer class="site-footer">
     <div class="container">
-        <p class="footer-motto">Gaudeamus igitur, <span>juvenes dum sumus.</span></p>
+        <p class="footer-motto" lang="la">Gaudeamus igitur, <span>juvenes dum sumus.</span></p>
         <div class="footer-grid">
             <div class="footer-brand">
-                <a href="index.html" class="brand" aria-label="Sängerschaft Gothia — zur Startseite">
+                <a href="index.html" class="brand">
                     <span class="brand-band" aria-hidden="true"></span>
                     <span class="brand-text"><span class="brand-name">Gothia</span><span class="brand-sub">Akad. Sängerschaft · Graz</span></span>
-                </a>
-                <p class="footer-about">Ein Bund fürs Leben — verwurzelt in Geschichte und Tradition, geleitet von Bundesbrüderlichkeit und Musik seit 1863 in Graz.</p>
-                <a class="footer-social" href="https://open.spotify.com/intl-de/artist/5IpsNPWRsuf9EUHvxX5TIH" target="_blank" rel="noopener"><svg class="icon"><use href="#i-spotify"/></svg> Gothia auf Spotify</a>
+                <span class="sr-only"> – zur Startseite</span></a>
+                <p class="footer-about">Ein Bund fürs Leben&nbsp;— verwurzelt in Geschichte und Tradition, geleitet von Bundesbrüderlichkeit und Musik seit 1863 in Graz.</p>
+                <a class="footer-social" href="https://open.spotify.com/intl-de/artist/5IpsNPWRsuf9EUHvxX5TIH" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-spotify"/></svg> Gothia auf Spotify</a>
             </div>
             <div class="footer-col">
-                <h4>Entdecken</h4>
+                <h2 class="footer-col-title">Entdecken</h2>
                 <ul>
                     <li><a href="index.html#ueber-uns">Über uns</a></li>
                     <li><a href="index.html#chor">Chor</a></li>
@@ -287,7 +288,7 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Gothenhaus</h4>
+                <h2 class="footer-col-title">Gothenhaus</h2>
                 <ul>
                     <li><a href="index.html#gothenhaus">Wohnen</a></li>
                     <li><a href="zimmer.html">Freie Zimmer</a></li>
@@ -296,7 +297,7 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Rechtliches</h4>
+                <h2 class="footer-col-title">Rechtliches</h2>
                 <ul>
                     <li><a href="impressum.html">Impressum</a></li>
                     <li><a href="datenschutz.html" aria-current="page">Datenschutz</a></li>
@@ -306,13 +307,13 @@
         </div>
         <div class="footer-bottom">
             <p>© <span data-year>2026</span> Akademische Sängerschaft Gothia zu Graz</p>
-            <p><em>Vivat, crescat, floreat!</em></p>
+            <p><em lang="la">Vivat, crescat, floreat!</em></p>
         </div>
     </div>
 </footer>
 
-<button class="to-top" id="toTop" type="button" aria-label="Nach oben"><svg class="icon"><use href="#i-arrow-up"/></svg></button>
+<button class="to-top" id="toTop" type="button" aria-label="Nach oben"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up"/></svg></button>
 
-<script src="assets/js/site.js?v=20261101" defer></script>
+<script src="assets/js/site.js?v=20261102" defer></script>
 </body>
 </html>

@@ -145,7 +145,9 @@ Google-Kalender  ──►  calendar.php  ──►  Startseite (Terminliste + �
 
 **Offline-Kopie:** In `index.html` steht ganz unten im Abschnitt „Termine“ ein Block
 `<script type="text/calendar" id="ics-fallback">`. Diese Kopie wird **nur** verwendet, wenn `calendar.php`
-nicht erreichbar ist – etwa wenn man die Seite lokal ohne PHP öffnet. Im Normalbetrieb muss man sie nicht anfassen.
+nicht erreichbar ist – etwa wenn man die Seite lokal ohne PHP öffnet. Über der Liste erscheint dann der Hinweis
+„Gespeicherte Kopie – der Live-Kalender ist gerade nicht erreichbar“ (nicht beim Öffnen per Doppelklick).
+Im Normalbetrieb muss man sie nicht anfassen.
 Wer sie auffrischen will, ersetzt den Inhalt durch den aktuellen Kalender (Adresse `…/calendar.php` im Browser öffnen,
 alles kopieren).
 
@@ -160,11 +162,16 @@ Für Technikinteressierte: Der Antwort-Header `X-Calendar-Cache` zeigt `HIT` (au
 Alles steht in **`consent.js`**:
 
 - Die Google-Analytics-ID steht ganz oben: `var GA_ID = 'G-TDHNXVECH4';`
-- Google Analytics wird **ausschließlich nach Zustimmung** geladen („Akzeptieren“).
-- Spotify-Player und Google-Karte auf der Startseite laden ebenfalls erst nach Zustimmung – oder wenn man
+- Der Hinweis fragt **zwei Zwecke getrennt** ab (beide standardmäßig aus):
+  **Statistik** (Google Analytics) und **Externe Medien** (Google-Karte, Spotify-Player).
+  Knöpfe: „Nur notwendige“, „Auswahl speichern“, „Alle akzeptieren“.
+- Google Analytics wird **ausschließlich nach Zustimmung zu „Statistik“** geladen.
+- Spotify-Player und Google-Karte laden erst nach Zustimmung zu „Externe Medien“ – oder wenn man
   direkt auf „Player laden“ / „Karte laden“ klickt.
-- Die Auswahl wird nur im Browser des Besuchers gespeichert (`localStorage`, Schlüssel `gothia-consent`).
-  Über „Cookie-Einstellungen“ in der Fußzeile kann man sie jederzeit ändern.
+- Die Auswahl wird nur im Browser des Besuchers gespeichert (`localStorage`, Schlüssel `gothia-consent`:
+  `granted` = alles, `denied` = nur notwendige, sonst z. B. `{"stats":false,"media":true}`).
+  Über „Cookie-Einstellungen“ in der Fußzeile kann man sie jederzeit ändern; wird eine Zustimmung
+  zurückgenommen, lädt die Seite neu, damit bereits geladene Dienste sicher beendet sind.
 
 Wird ein Dienst ergänzt, geändert oder entfernt, bitte auch **`datenschutz.html`** anpassen.
 
@@ -242,8 +249,8 @@ Häufige Bausteine: Buttons `btn btn--gold` / `btn--forest` / `btn--ghost`, klei
 - Dateien werden komprimiert ausgeliefert; Browser speichern Bilder & Schriften 30 Tage, CSS/JS 7 Tage,
   HTML-Seiten, `zimmer.json` und den Kalender dagegen nicht lange.
 - **Nach Änderungen an CSS oder JavaScript** sehen wiederkehrende Besucher bis zu 7 Tage die alte Version.
-  Abhilfe: In allen HTML-Dateien steht hinter den Dateinamen eine Versionsnummer (aktuell `?v=20261101`,
-  z. B. `assets/css/site.css?v=20261101`). Nach einer Änderung überall auf das neue Datum hochzählen.
+  Abhilfe: In allen HTML-Dateien steht hinter den Dateinamen eine Versionsnummer (aktuell `?v=20261102`,
+  z. B. `assets/css/site.css?v=20261102`). Nach einer Änderung überall auf das neue Datum hochzählen.
 - Eine Weiterleitung auf HTTPS/www ist absichtlich **nicht** aktiv (das erledigt das Hosting); ein Beispiel steht auskommentiert drin.
 - Zeigt die Seite nach einer Änderung an `.htaccess` „500 Internal Server Error“: die letzte Änderung rückgängig machen.
 

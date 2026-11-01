@@ -132,13 +132,23 @@
         };
     }
 
-    function priceText(r) { return r.price != null ? fmt(r.price) + ' €' : 'auf Anfrage'; }
+    function priceText(r) { return r.price != null ? fmt(r.price) + '\u00a0€' : 'auf Anfrage'; }
     function mailtoFor(r) {
-        var body = 'Hallo!\r\n\r\nIch interessiere mich für das Zimmer „' + r.name + '“ im Gothenhaus.\r\n\r\n' +
-            'Studiengang, Hochschule, Semester:\r\n' +
-            'Gewünschtes Einzugsdatum:\r\n' +
-            'Musikalische Vorbildung (Gesang/Instrument):\r\n\r\nViele Grüße\r\n';
-        return 'mailto:' + MAIL + '?subject=' + encodeURIComponent('Zimmeranfrage: ' + r.name) + '&body=' + encodeURIComponent(body);
+        var subject, body;
+        if (r.status === 'gaestezimmer') {
+            subject = 'Anfrage Gästezimmer: ' + r.name;
+            body = 'Hallo!\r\n\r\nIch würde gerne das Gästezimmer „' + r.name + '“ im Gothenhaus anfragen.\r\n\r\n' +
+                'Zeitraum (Anreise – Abreise):\r\n' +
+                'Anzahl Personen:\r\n\r\nViele Grüße\r\n';
+        } else {
+            subject = 'Zimmeranfrage: ' + r.name;
+            body = 'Hallo!\r\n\r\nIch interessiere mich für das Zimmer „' + r.name + '“ im Gothenhaus.\r\n\r\n' +
+                'Studiengang, Hochschule, Semester:\r\n' +
+                'Verbleibende Studiendauer:\r\n' +
+                'Gewünschtes Einzugsdatum:\r\n' +
+                'Musikalische Vorbildung (Gesang/Instrument):\r\n\r\nViele Grüße\r\n';
+        }
+        return 'mailto:' + MAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     }
 
     function matches(r, key) {
@@ -160,7 +170,7 @@
             media = el('button', 'room-media');
             media.type = 'button';
             media.setAttribute('aria-haspopup', 'dialog');
-            media.setAttribute('aria-label', 'Fotos von Zimmer ' + r.name + ' ansehen (' + count + ' ' + plural(count, 'Foto', 'Fotos') + ')');
+            media.setAttribute('aria-label', 'Galerie öffnen: Zimmer ' + r.name + ' (' + count + ' ' + plural(count, 'Foto', 'Fotos') + ')');
             var img = el('img');
             img.alt = '';
             img.loading = 'lazy';
@@ -214,8 +224,7 @@
             price.appendChild(el('strong', null, priceText(r)));
             price.appendChild(el('small', null, 'pro Monat'));
         } else {
-            price.appendChild(el('strong', null, 'auf Anfrage'));
-            price.appendChild(el('small', null, 'Preis'));
+            price.appendChild(el('strong', null, 'Preis auf Anfrage'));
         }
         head.appendChild(price);
         body.appendChild(head);
@@ -230,7 +239,7 @@
         if (r.size != null) {
             var li = el('li');
             li.appendChild(icon('i-ruler'));
-            li.appendChild(doc.createTextNode(fmt(r.size) + ' m²'));
+            li.appendChild(doc.createTextNode(fmt(r.size) + '\u00a0m²'));
             facts.appendChild(li);
         }
         var furn = el('li');
@@ -342,7 +351,8 @@
     /* ── Live-Zusammenfassung im Seitenkopf ── */
     function renderSummary() {
         if (!availCard) return;
-        var total = rooms.length;
+        // Gästezimmer wird nicht an Studierende vermietet → nicht mitzählen
+        var total = rooms.filter(function (r) { return r.status !== 'gaestezimmer'; }).length;
         var free = rooms.filter(function (r) { return r.status === 'frei'; });
         var prices = free.map(function (r) { return r.price; }).filter(function (p) { return p != null; });
         var q = function (k) { return availCard.querySelector('[data-avail="' + k + '"]'); };
@@ -350,14 +360,16 @@
         q('num').textContent = String(free.length);
         if (free.length) {
             q('title').textContent = free.length + ' von ' + total + ' ' + plural(total, 'Zimmer', 'Zimmern') + ' frei';
-            q('meta').textContent = prices.length ? 'ab ' + fmt(Math.min.apply(null, prices)) + ' € / Monat · teilmöbliert' : 'Preis auf Anfrage · teilmöbliert';
+            var min = prices.length ? Math.min.apply(null, prices) : null;
+            var varies = prices.some(function (p) { return p !== min; });
+            q('meta').textContent = min !== null ? (varies ? 'ab ' : '') + fmt(min) + '\u00a0€ / Monat · teilmöbliert' : 'Preis auf Anfrage · teilmöbliert';
             q('linktext').textContent = free.length === 1 ? 'Freies Zimmer zeigen' : 'Freie Zimmer zeigen';
             link.setAttribute('href', '#zimmer');
             link.addEventListener('click', function () { setFilter('frei', true); });
         } else {
             availCard.classList.add('is-none');
             q('title').textContent = 'Derzeit alle Zimmer vergeben';
-            q('meta').textContent = 'Zimmer werden laufend frei — frag gerne nach.';
+            q('meta').textContent = 'Die meisten Zimmer werden zum 1. September neu vergeben — bewirb dich gerne schon jetzt.';
             q('linktext').textContent = 'So bewirbst du dich';
             link.setAttribute('href', '#vergabe');
             link.querySelector('use').setAttribute('href', '#i-arrow-right');
@@ -424,9 +436,25 @@
         try { wanted = new URLSearchParams(window.location.search).get('filter'); } catch (e) { /* ignorieren */ }
         setFilter(wanted && chipEls[wanted] ? wanted : 'alle', false);
         renderSummary();
+        // Kam der Aufruf von „Erneut versuchen“, war der fokussierte Button jetzt weg → Fokus sinnvoll setzen
+        if (retryFocus) {
+            retryFocus = false;
+            var target = (filterBar && filterBar.querySelector('[aria-pressed="true"]')) || countEl;
+            if (target) {
+                if (target === countEl) countEl.setAttribute('tabindex', '-1');
+                target.focus();
+            }
+        }
     }
 
+    var retryFocus = false;
     function load() {
+        retryFocus = !!(doc.activeElement && doc.activeElement.closest && doc.activeElement.closest('.rooms-state'));
+        if (window.location.protocol === 'file:') {
+            // Lokale Vorschau per Doppelklick: Browser erlauben hier keinen Zugriff auf zimmer.json
+            showState('Lokale Vorschau', 'Die Zimmerliste wird nur über einen Webserver geladen (z. B. „python3 -m http.server“). Fragen beantwortet die Heimleitung:', false);
+            return;
+        }
         grid.setAttribute('aria-busy', 'true');
         if (!window.fetch) {
             showState('Die Zimmerliste konnte gerade nicht geladen werden …', 'Dein Browser ist leider zu alt. Schreib der Heimleitung direkt:', false);

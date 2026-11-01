@@ -16,7 +16,7 @@
     <meta property="og:title" content="Zimmer im Gothenhaus — Studentenheim in Graz">
     <meta property="og:description" content="Leistbares Wohnen im Herzen von Graz: alle Zimmer im Studentenheim Gothenhaus mit Größe, Preis und Fotos.">
     <meta property="og:url" content="https://www.gothia-graz.at/zimmer.html">
-    <meta property="og:image" content="https://www.gothia-graz.at/assets/img/og-image.jpg">
+    <meta property="og:image" content="https://www.gothia-graz.at/assets/img/og-zimmer.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="de_AT">
@@ -36,9 +36,9 @@
     <script>document.documentElement.classList.add('js');</script>
     <link rel="preload" href="assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="assets/css/site.css?v=20261101">
-    <link rel="stylesheet" href="assets/css/zimmer.css?v=20261101">
-    <script src="consent.js?v=20261101" defer></script>
+    <link rel="stylesheet" href="assets/css/site.css?v=20261102">
+    <link rel="stylesheet" href="assets/css/zimmer.css?v=20261102">
+    <script src="consent.js?v=20261102" defer></script>
 </head>
 <body data-header="overlay">
 
@@ -89,13 +89,13 @@
 <!-- ═════════ Kopfzeile ═════════ -->
 <header class="site-header is-over-hero" id="siteHeader">
     <div class="container header-inner">
-        <a href="index.html" class="brand" aria-label="Sängerschaft Gothia — zur Startseite">
+        <a href="index.html" class="brand">
             <span class="brand-band" aria-hidden="true"></span>
             <span class="brand-text">
                 <span class="brand-name">Gothia</span>
                 <span class="brand-sub">Akad. Sängerschaft · Graz</span>
             </span>
-        </a>
+        <span class="sr-only"> – zur Startseite</span></a>
         <nav class="nav" aria-label="Hauptnavigation">
             <ul class="nav-links">
                 <li><a href="index.html#ueber-uns">Über uns</a></li>
@@ -116,21 +116,21 @@
     </div>
 </header>
 
-<div class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation" role="dialog" aria-modal="true">
+<nav class="mobile-nav" id="mobileNav" aria-label="Menü">
     <ul>
-        <li><a href="index.html#ueber-uns"><small>01</small>Über uns</a></li>
-        <li><a href="index.html#chor"><small>02</small>Chor</a></li>
-        <li><a href="index.html#termine"><small>03</small>Termine</a></li>
-        <li><a href="index.html#gothenhaus"><small>04</small>Gothenhaus</a></li>
-        <li><a href="index.html#geschichte"><small>05</small>Geschichte</a></li>
-        <li><a href="index.html#kontakt"><small>06</small>Kontakt</a></li>
+        <li><a href="index.html#ueber-uns"><small aria-hidden="true">01</small>Über uns</a></li>
+        <li><a href="index.html#chor"><small aria-hidden="true">02</small>Chor</a></li>
+        <li><a href="index.html#termine"><small aria-hidden="true">03</small>Termine</a></li>
+        <li><a href="index.html#gothenhaus"><small aria-hidden="true">04</small>Gothenhaus</a></li>
+        <li><a href="index.html#geschichte"><small aria-hidden="true">05</small>Geschichte</a></li>
+        <li><a href="index.html#kontakt"><small aria-hidden="true">06</small>Kontakt</a></li>
     </ul>
     <div class="btn-row">
         <a href="index.html#mitmachen" class="btn btn--gold">Mitglied werden</a>
         <a href="zimmer.html" class="btn btn--ghost-light" aria-current="page">Freie Zimmer</a>
     </div>
     <div class="mobile-nav-foot">Leonhardstraße 27, 8010 Graz · <a href="mailto:info@gothia-graz.at">info@gothia-graz.at</a></div>
-</div>
+</nav>
 
 <main id="inhalt">
 
@@ -143,7 +143,7 @@
     </div>
     <div class="container rooms-hero-grid">
         <div class="rooms-hero-copy">
-            <nav aria-label="Brotkrumen">
+            <nav aria-label="Brotkrümelnavigation">
                 <ol class="breadcrumb">
                     <li><a href="index.html">Startseite</a></li>
                     <li aria-current="page">Zimmer</li>
@@ -151,7 +151,7 @@
             </nav>
             <p class="eyebrow">Studentenheim Gothenhaus</p>
             <h1 id="page-title">Zimmer <em>am Gothenhaus</em></h1>
-            <p class="lead">Leistbares Wohnen im Herzen von Graz — zwischen Hörsaal und Harmonie. Hier findest du alle Zimmer mit Größe, Preis und Fotos auf einen Blick.</p>
+            <p class="lead">Leistbares Wohnen im Herzen von Graz&nbsp;— zwischen Hörsaal und Harmonie. Hier findest du alle Zimmer mit Größe, Preis und Fotos auf einen Blick.</p>
             <p class="meta-pill"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> Leonhardstraße 27, 8010 Graz</p>
         </div>
 
@@ -178,7 +178,7 @@
                 <p class="eyebrow">Zimmerübersicht</p>
                 <h2 class="h2" id="rooms-title">Finde dein <em>Zimmer</em></h2>
             </div>
-            <p class="rooms-intro">Alle Zimmer sind teilmöbliert. Ein Klick aufs Foto öffnet die Galerie — mit „Anfragen“ schreibst du direkt der Heimleitung.</p>
+            <p class="rooms-intro">Alle Zimmer sind teilmöbliert. Ein Klick aufs Foto öffnet die Galerie&nbsp;— mit „Anfragen“ schreibst du direkt der Heimleitung.</p>
         </div>
 
         <div class="rooms-toolbar" id="roomsToolbar" hidden>
@@ -200,7 +200,7 @@
             <div class="rooms-state">
                 <span class="rooms-state-icon"><svg class="icon" aria-hidden="true"><use href="#i-bed"/></svg></span>
                 <strong>Zimmerliste</strong>
-                <p>Bitte aktiviere JavaScript, um die aktuelle Zimmerliste mit Fotos zu sehen — oder schreib der Heimleitung direkt: <a href="mailto:heimleitung@studentenheim-gothenhaus.at">heimleitung@studentenheim-gothenhaus.at</a></p>
+                <p>Bitte aktiviere JavaScript, um die aktuelle Zimmerliste mit Fotos zu sehen&nbsp;— oder schreib der Heimleitung direkt: <a href="mailto:heimleitung@studentenheim-gothenhaus.at">heimleitung@studentenheim-gothenhaus.at</a></p>
             </div>
         </noscript>
     </div>
@@ -218,8 +218,8 @@
         <div class="apply-grid">
             <div class="apply-card apply-criteria reveal">
                 <ul class="check-list">
-                    <li><span class="check" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><span>… es sich zum Ziel gesetzt haben, ernsthaft und interessiert zu studieren, und</span></li>
-                    <li><span class="check" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><span>… bereit sind, sich in die Gemeinschaft am Gothenhaus einzubringen — sei es durch Teilnahme an den Veranstaltungen oder an den Chorproben und Auftritten des Gothenchores.</span></li>
+                    <li><span class="check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span><span>… es sich zum Ziel gesetzt haben, ernsthaft und interessiert zu studieren, und</span></li>
+                    <li><span class="check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span><span>… bereit sind, sich in die Gemeinschaft am Gothenhaus einzubringen&nbsp;— sei es durch Teilnahme an den Veranstaltungen oder an den Chorproben und Auftritten des Gothenchores.</span></li>
                 </ul>
             </div>
             <div class="apply-card apply-term reveal" style="--delay:.1s">
@@ -239,7 +239,7 @@
                     <li>Studiengang, Hochschule, wievieltes Semester, verbleibende Studiendauer</li>
                     <li>(Ungefähres) gewünschtes Einzugsdatum</li>
                     <li>Zimmer, die für dich interessant sind</li>
-                    <li>Musikalische Vorbildung (Gesang/Instrument) – ja/nein, und wenn ja: welche</li>
+                    <li>Musikalische Vorbildung (Gesang/Instrument): ja/nein, und wenn ja: welche</li>
                 </ul>
             </li>
             <li class="apply-step reveal" style="--delay:.08s">
@@ -255,7 +255,7 @@
         </ol>
 
         <div class="apply-actions reveal">
-            <a href="mailto:heimleitung@studentenheim-gothenhaus.at?subject=Zimmerbewerbung%20Gothenhaus" class="btn btn--forest btn--lg"><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg> Jetzt bewerben</a>
+            <a href="mailto:heimleitung@studentenheim-gothenhaus.at?subject=Zimmerbewerbung%20Gothenhaus&amp;body=Hallo%21%0D%0A%0D%0AIch%20m%C3%B6chte%20mich%20um%20ein%20Zimmer%20im%20Gothenhaus%20bewerben.%0D%0A%0D%0AStudiengang%2C%20Hochschule%2C%20Semester%3A%0D%0AVerbleibende%20Studiendauer%3A%0D%0AGew%C3%BCnschtes%20Einzugsdatum%3A%0D%0AGew%C3%BCnschte%20Zimmer%20%28falls%20schon%20bekannt%29%3A%0D%0AMusikalische%20Vorbildung%20%28Gesang/Instrument%29%3A%0D%0A%0D%0AViele%20Gr%C3%BC%C3%9Fe%0D%0A" class="btn btn--forest btn--lg"><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg> Jetzt bewerben</a>
             <p>oder direkt an <a href="mailto:heimleitung@studentenheim-gothenhaus.at">heimleitung@studentenheim-gothenhaus.at</a></p>
         </div>
     </div>
@@ -275,9 +275,9 @@
                 </g>
             </svg>
             <div class="rooms-cta-copy">
-                <p class="eyebrow">Fragen zum Gothenhaus?</p>
-                <h2 class="h2" id="cta-title">Ein Zimmer frei? <em>Melde dich!</em></h2>
-                <p class="lead">Interesse an einem Zimmer oder Fragen zum Gothenhaus? Wir freuen uns auf deine Nachricht.</p>
+                <p class="eyebrow">Kontakt</p>
+                <h2 class="h2" id="cta-title">Interesse an einem Zimmer? <em>Melde dich!</em></h2>
+                <p class="lead">Wir beantworten gern alle Fragen rund ums Gothenhaus und freuen uns auf deine Nachricht.</p>
             </div>
             <div class="btn-row">
                 <a href="index.html#kontakt" class="btn btn--gold btn--lg">Jetzt Kontakt aufnehmen <svg class="icon icon--arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
@@ -292,18 +292,18 @@
 <!-- ═════════ Fußzeile ═════════ -->
 <footer class="site-footer">
     <div class="container">
-        <p class="footer-motto">Gaudeamus igitur, <span>juvenes dum sumus.</span></p>
+        <p class="footer-motto" lang="la">Gaudeamus igitur, <span>juvenes dum sumus.</span></p>
         <div class="footer-grid">
             <div class="footer-brand">
-                <a href="index.html" class="brand" aria-label="Sängerschaft Gothia — zur Startseite">
+                <a href="index.html" class="brand">
                     <span class="brand-band" aria-hidden="true"></span>
                     <span class="brand-text"><span class="brand-name">Gothia</span><span class="brand-sub">Akad. Sängerschaft · Graz</span></span>
-                </a>
-                <p class="footer-about">Ein Bund fürs Leben — verwurzelt in Geschichte und Tradition, geleitet von Bundesbrüderlichkeit und Musik seit 1863 in Graz.</p>
-                <a class="footer-social" href="https://open.spotify.com/intl-de/artist/5IpsNPWRsuf9EUHvxX5TIH" target="_blank" rel="noopener"><svg class="icon"><use href="#i-spotify"/></svg> Gothia auf Spotify</a>
+                <span class="sr-only"> – zur Startseite</span></a>
+                <p class="footer-about">Ein Bund fürs Leben&nbsp;— verwurzelt in Geschichte und Tradition, geleitet von Bundesbrüderlichkeit und Musik seit 1863 in Graz.</p>
+                <a class="footer-social" href="https://open.spotify.com/intl-de/artist/5IpsNPWRsuf9EUHvxX5TIH" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-spotify"/></svg> Gothia auf Spotify</a>
             </div>
             <div class="footer-col">
-                <h4>Entdecken</h4>
+                <h2 class="footer-col-title">Entdecken</h2>
                 <ul>
                     <li><a href="index.html#ueber-uns">Über uns</a></li>
                     <li><a href="index.html#chor">Chor</a></li>
@@ -313,7 +313,7 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Gothenhaus</h4>
+                <h2 class="footer-col-title">Gothenhaus</h2>
                 <ul>
                     <li><a href="index.html#gothenhaus">Wohnen</a></li>
                     <li><a href="zimmer.html" aria-current="page">Freie Zimmer</a></li>
@@ -322,7 +322,7 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Rechtliches</h4>
+                <h2 class="footer-col-title">Rechtliches</h2>
                 <ul>
                     <li><a href="impressum.html">Impressum</a></li>
                     <li><a href="datenschutz.html">Datenschutz</a></li>
@@ -332,12 +332,12 @@
         </div>
         <div class="footer-bottom">
             <p>© <span data-year>2026</span> Akademische Sängerschaft Gothia zu Graz</p>
-            <p><em>Vivat, crescat, floreat!</em></p>
+            <p><em lang="la">Vivat, crescat, floreat!</em></p>
         </div>
     </div>
 </footer>
 
-<button class="to-top" id="toTop" type="button" aria-label="Nach oben"><svg class="icon"><use href="#i-arrow-up"/></svg></button>
+<button class="to-top" id="toTop" type="button" aria-label="Nach oben"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up"/></svg></button>
 
 <!-- ═════════ Fotogalerie ═════════ -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lbTitle" hidden>
@@ -361,7 +361,7 @@
     <p class="sr-only" id="lbStatus" aria-live="polite"></p>
 </div>
 
-<script src="assets/js/site.js?v=20261101" defer></script>
-<script src="assets/js/zimmer.js?v=20261101" defer></script>
+<script src="assets/js/site.js?v=20261102" defer></script>
+<script src="assets/js/zimmer.js?v=20261102" defer></script>
 </body>
 </html>

@@ -25,8 +25,8 @@
     <script>document.documentElement.classList.add('js');</script>
     <link rel="preload" href="assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="assets/css/site.css?v=20261101">
-    <script src="consent.js?v=20261101" defer></script>
+    <link rel="stylesheet" href="assets/css/site.css?v=20261102">
+    <script src="consent.js?v=20261102" defer></script>
     <style>
         /* Rechtstexte — seitenspezifische Ergänzungen (Impressum & Datenschutz) */
         .page-hero .legal-mark { position: absolute; z-index: -1; right: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter))); bottom: -.22em; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(15rem, 25vw, 23rem); line-height: 1; color: var(--gold-light); opacity: .085; pointer-events: none; user-select: none; }
@@ -105,13 +105,13 @@
 <!-- ═════════ Kopfzeile ═════════ -->
 <header class="site-header is-over-hero" id="siteHeader">
     <div class="container header-inner">
-        <a href="index.html" class="brand" aria-label="Sängerschaft Gothia — zur Startseite">
+        <a href="index.html" class="brand">
             <span class="brand-band" aria-hidden="true"></span>
             <span class="brand-text">
                 <span class="brand-name">Gothia</span>
                 <span class="brand-sub">Akad. Sängerschaft · Graz</span>
             </span>
-        </a>
+        <span class="sr-only"> – zur Startseite</span></a>
         <nav class="nav" aria-label="Hauptnavigation">
             <ul class="nav-links">
                 <li><a href="index.html#ueber-uns">Über uns</a></li>
@@ -132,21 +132,21 @@
     </div>
 </header>
 
-<div class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation" role="dialog" aria-modal="true">
+<nav class="mobile-nav" id="mobileNav" aria-label="Menü">
     <ul>
-        <li><a href="index.html#ueber-uns"><small>01</small>Über uns</a></li>
-        <li><a href="index.html#chor"><small>02</small>Chor</a></li>
-        <li><a href="index.html#termine"><small>03</small>Termine</a></li>
-        <li><a href="index.html#gothenhaus"><small>04</small>Gothenhaus</a></li>
-        <li><a href="index.html#geschichte"><small>05</small>Geschichte</a></li>
-        <li><a href="index.html#kontakt"><small>06</small>Kontakt</a></li>
+        <li><a href="index.html#ueber-uns"><small aria-hidden="true">01</small>Über uns</a></li>
+        <li><a href="index.html#chor"><small aria-hidden="true">02</small>Chor</a></li>
+        <li><a href="index.html#termine"><small aria-hidden="true">03</small>Termine</a></li>
+        <li><a href="index.html#gothenhaus"><small aria-hidden="true">04</small>Gothenhaus</a></li>
+        <li><a href="index.html#geschichte"><small aria-hidden="true">05</small>Geschichte</a></li>
+        <li><a href="index.html#kontakt"><small aria-hidden="true">06</small>Kontakt</a></li>
     </ul>
     <div class="btn-row">
         <a href="index.html#mitmachen" class="btn btn--gold">Mitglied werden</a>
         <a href="zimmer.html" class="btn btn--ghost-light">Freie Zimmer</a>
     </div>
     <div class="mobile-nav-foot">Leonhardstraße 27, 8010 Graz · <a href="mailto:info@gothia-graz.at">info@gothia-graz.at</a></div>
-</div>
+</nav>
 
 <main id="inhalt">
 
@@ -174,7 +174,7 @@
                 <h2 class="legal-card-label" id="kontakt-title">Kontakt</h2>
                 <p class="legal-card-name">Akademische Sängerschaft Gothia zu Graz</p>
                 <ul class="contact-list">
-                    <li><span class="ic"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg></span><span><small>Adresse</small><address>Leonhardstraße 27,<br>A-8010 Graz</address></span></li>
+                    <li><span class="ic"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg></span><span><small>Adresse</small><address>Leonhardstraße 27<br>A-8010 Graz</address></span></li>
                     <li><span class="ic"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span><span><small>E-Mail</small><a href="mailto:info@gothia-graz.at">info@gothia-graz.at</a></span></li>
                     <li><span class="ic"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span><span><small>ZVR</small><span class="val">47 88 0 26 37</span></span></li>
                 </ul>
@@ -198,7 +198,7 @@
             <p>Sämtliche Texte auf dieser Website wurden sorgfältig geprüft. Dessen ungeachtet kann keine Garantie für Richtigkeit, Vollständigkeit und Aktualität der Angaben übernommen werden.</p>
 
             <h2 id="datenschutz">Datenschutz</h2>
-            <p>Diese Website verwendet Cookies und davon abgeleitete Techniken, welche ausschließlich der Benutzer-Identifizierung zur Ermöglichung der Service-Funktionen des Programms dienen. Sie sammeln keinerlei Daten über den Benutzer für darüber hinausgehende Zwecke. Ferner wird vom Betreiber des Webservers eine Auswertung des Besucherverkehrs geführt. Diese dient ausschließlich dem Zweck der technischen Wartung und Kontrolle. Diese Daten werden von der Akademischen Sängerschaft Gothia zu Graz, mit Ausnahme von anonymen Statistik-Daten, nicht gespeichert.</p>
+            <p>Welche Daten beim Besuch dieser Website verarbeitet werden (Server-Logfiles, Cookies, Google Analytics nach Einwilligung, eingebettete Dienste) und welche Rechte du hast, erfährst du in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
 
             <h2 id="copyright">Copyright</h2>
             <p>Sämtliche Inhalte dieser Website sind urheberrechtlich geschützt. Eine Verwendung ist nur mit ausdrücklicher Genehmigung des Rechte-Inhabers (Akademische Sängerschaft Gothia zu Graz oder dem beim jeweiligen Inhalt genannten Rechte-Inhaber) zulässig.</p>
@@ -215,18 +215,18 @@
 <!-- ═════════ Fußzeile ═════════ -->
 <footer class="site-footer">
     <div class="container">
-        <p class="footer-motto">Gaudeamus igitur, <span>juvenes dum sumus.</span></p>
+        <p class="footer-motto" lang="la">Gaudeamus igitur, <span>juvenes dum sumus.</span></p>
         <div class="footer-grid">
             <div class="footer-brand">
-                <a href="index.html" class="brand" aria-label="Sängerschaft Gothia — zur Startseite">
+                <a href="index.html" class="brand">
                     <span class="brand-band" aria-hidden="true"></span>
                     <span class="brand-text"><span class="brand-name">Gothia</span><span class="brand-sub">Akad. Sängerschaft · Graz</span></span>
-                </a>
-                <p class="footer-about">Ein Bund fürs Leben — verwurzelt in Geschichte und Tradition, geleitet von Bundesbrüderlichkeit und Musik seit 1863 in Graz.</p>
-                <a class="footer-social" href="https://open.spotify.com/intl-de/artist/5IpsNPWRsuf9EUHvxX5TIH" target="_blank" rel="noopener"><svg class="icon"><use href="#i-spotify"/></svg> Gothia auf Spotify</a>
+                <span class="sr-only"> – zur Startseite</span></a>
+                <p class="footer-about">Ein Bund fürs Leben&nbsp;— verwurzelt in Geschichte und Tradition, geleitet von Bundesbrüderlichkeit und Musik seit 1863 in Graz.</p>
+                <a class="footer-social" href="https://open.spotify.com/intl-de/artist/5IpsNPWRsuf9EUHvxX5TIH" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-spotify"/></svg> Gothia auf Spotify</a>
             </div>
             <div class="footer-col">
-                <h4>Entdecken</h4>
+                <h2 class="footer-col-title">Entdecken</h2>
                 <ul>
                     <li><a href="index.html#ueber-uns">Über uns</a></li>
                     <li><a href="index.html#chor">Chor</a></li>
@@ -236,7 +236,7 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Gothenhaus</h4>
+                <h2 class="footer-col-title">Gothenhaus</h2>
                 <ul>
                     <li><a href="index.html#gothenhaus">Wohnen</a></li>
                     <li><a href="zimmer.html">Freie Zimmer</a></li>
@@ -245,7 +245,7 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Rechtliches</h4>
+                <h2 class="footer-col-title">Rechtliches</h2>
                 <ul>
                     <li><a href="impressum.html" aria-current="page">Impressum</a></li>
                     <li><a href="datenschutz.html">Datenschutz</a></li>
@@ -255,13 +255,13 @@
         </div>
         <div class="footer-bottom">
             <p>© <span data-year>2026</span> Akademische Sängerschaft Gothia zu Graz</p>
-            <p><em>Vivat, crescat, floreat!</em></p>
+            <p><em lang="la">Vivat, crescat, floreat!</em></p>
         </div>
     </div>
 </footer>
 
-<button class="to-top" id="toTop" type="button" aria-label="Nach oben"><svg class="icon"><use href="#i-arrow-up"/></svg></button>
+<button class="to-top" id="toTop" type="button" aria-label="Nach oben"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up"/></svg></button>
 
-<script src="assets/js/site.js?v=20261101" defer></script>
+<script src="assets/js/site.js?v=20261102" defer></script>
 </body>
 </html>

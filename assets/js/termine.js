@@ -460,7 +460,7 @@
     }
     function singleIcs(ev) {
         var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Akademische Saengerschaft Gothia zu Graz//Termine//DE', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
-            'UID:' + (ev.uid || 'gothia') + '-' + ev.start + '@gothia-graz.at',
+            'UID:' + String(ev.uid || 'gothia').replace(/@.*$/, '') + '-' + ev.start + '@gothia-graz.at',
             'DTSTAMP:' + utcStamp(Date.now())];
         if (ev.allDay) {
             lines.push('DTSTART;VALUE=DATE:' + ev.startKey.replace(/-/g, ''));
@@ -480,7 +480,7 @@
         var blob = new Blob([singleIcs(ev)], { type: 'text/calendar;charset=utf-8' });
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = 'gothia-' + ev.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ß/g, 'ss').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '.ics';
+        a.download = 'gothia-' + ev.title.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ß/g, 'ss').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '.ics';
         document.body.appendChild(a);
         a.click();
         setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
@@ -517,10 +517,16 @@
         item.appendChild(date);
 
         var main = el('div', 'event-main');
-        var h = el('h3', 'event-title', ev.title);
+        var head = el('div', 'event-head');
+        head.appendChild(el('h4', 'event-title', ev.title));
         var tag = tagOf(ev.title);
-        if (tag) h.appendChild(el('span', 'event-tag ' + tag.cls, tag.label));
-        main.appendChild(h);
+        if (tag) {
+            var tagEl = el('span', 'event-tag ' + tag.cls);
+            tagEl.appendChild(el('span', 'sr-only', 'Kategorie: '));
+            tagEl.appendChild(document.createTextNode(tag.label));
+            head.appendChild(tagEl);
+        }
+        main.appendChild(head);
 
         var meta = el('div', 'event-meta');
         var when = el('span');
@@ -554,11 +560,27 @@
         return item;
     }
 
+    function announce(text) {
+        var s = document.getElementById('eventsStatus');
+        if (s) s.textContent = text;
+    }
+
     function render(container, events, opts) {
         opts = opts || {};
         var limit = opts.limit || 6;
         container.innerHTML = '';
         container.setAttribute('aria-busy', 'false');
+        if (opts.offline) {
+            // calendar.php war nicht erreichbar: ehrlich sagen, dass das eine gespeicherte Kopie ist
+            var note = el('p', 'events-note');
+            note.appendChild(document.createTextNode('Gespeicherte Kopie — der Live-Kalender ist gerade nicht erreichbar. Immer aktuell: '));
+            var sub = el('a', null, 'Kalender abonnieren');
+            sub.href = 'webcal://www.gothia-graz.at/calendar.php';
+            note.appendChild(sub);
+            note.appendChild(document.createTextNode('.'));
+            container.appendChild(note);
+        }
+        announce(events.length ? (events.length === 1 ? '1 Termin geladen' : events.length + ' Termine geladen') : 'Keine Termine eingetragen');
         if (!events.length) {
             var empty = el('div', 'events-state');
             empty.appendChild(el('strong', null, 'Gerade ist nichts eingetragen'));
@@ -595,7 +617,15 @@
                 btn.setAttribute('aria-expanded', open ? 'false' : 'true');
                 label.textContent = open ? 'Alle ' + events.length + ' Termine anzeigen' : 'Weniger anzeigen';
                 btn.querySelector('svg').style.transform = open ? '' : 'rotate(180deg)';
-                if (open) container.scrollIntoView({ block: 'start' });
+                if (open) {
+                    container.scrollIntoView({ block: 'start' });
+                } else {
+                    // Fokus auf den ersten neu sichtbaren Termin, damit Tastatur-Nutzer dort weiterlesen
+                    var firstNew = hiddenNodes.filter(function (n) { return n.classList.contains('event'); })[0];
+                    var target = firstNew && firstNew.querySelector('.event-add');
+                    if (target) target.focus();
+                    announce((events.length - limit) + ' weitere Termine angezeigt');
+                }
             });
             wrap.appendChild(btn);
             container.appendChild(wrap);
@@ -612,8 +642,15 @@
         var whenTxt = ev.allDay
             ? fmt({ weekday: 'long', day: 'numeric', month: 'long' }, keyMs(ev.startKey), 'UTC')
             : fmt({ weekday: 'long' }, ev.start) + ', ' + fmt({ hour: '2-digit', minute: '2-digit' }, ev.start) + ' Uhr';
-        set('meta', whenTxt + (ev.location ? ' · ' + shortLocation(ev.location).split(',')[0] : ''));
-        card.setAttribute('aria-label', 'Nächster Termin: ' + ev.title + ', ' + (ev.allDay ? whenTxt : fmt({ weekday: 'long', day: 'numeric', month: 'long' }, ev.start) + ', ' + fmt({ hour: '2-digit', minute: '2-digit' }, ev.start) + ' Uhr') + ' — alle Termine ansehen');
+        var metaEl = card.querySelector('[data-ne="meta"]');
+        if (metaEl) {
+            // Das Datums-Kästchen ist für Screenreader ausgeblendet → volles Datum unsichtbar mitlesen lassen
+            var fullDate = ev.allDay ? '' : fmt({ day: 'numeric', month: 'long' }, ev.start) + ', ';
+            metaEl.textContent = '';
+            if (fullDate) metaEl.appendChild(el('span', 'sr-only', fullDate));
+            metaEl.appendChild(document.createTextNode(whenTxt + (ev.location ? ' · ' + shortLocation(ev.location).split(',')[0] : '')));
+        }
+        card.removeAttribute('aria-label');
         card.hidden = false;
     }
 
@@ -621,16 +658,18 @@
 
     function isIcs(t) { return typeof t === 'string' && /^\s*BEGIN:VCALENDAR/.test(t); }
 
+    /* Liefert { text, offline }: offline = true, wenn die eingebettete Kopie statt des Live-Kalenders verwendet wird */
     function loadIcs(url) {
-        var fallback = function () {
+        var fallback = function (offline) {
             var n = document.getElementById('ics-fallback');
-            return n ? n.textContent : '';
+            return { text: n ? n.textContent : '', offline: offline };
         };
-        if (!window.fetch || location.protocol === 'file:') return Promise.resolve(fallback());
+        if (location.protocol === 'file:') return Promise.resolve(fallback(false));   // lokale Vorschau
+        if (!window.fetch) return Promise.resolve(fallback(true));
         return fetch(url, { cache: 'no-cache' })
             .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
-            .then(function (t) { if (!isIcs(t)) throw new Error('Keine iCalendar-Daten'); return t; })
-            .catch(function () { return fallback(); });
+            .then(function (t) { if (!isIcs(t)) throw new Error('Keine iCalendar-Daten'); return { text: t, offline: false }; })
+            .catch(function () { return fallback(true); });
     }
 
     function init() {
@@ -638,10 +677,10 @@
         var next = document.getElementById('nextEvent');
         if (!list && !next) return;
         var url = root.GOTHIA_ICS_URL || 'calendar.php';
-        loadIcs(url).then(function (text) {
+        loadIcs(url).then(function (res) {
             var now = Date.now();
-            var events = buildOccurrences(parseICS(text || ''), now, now + 366 * DAY);
-            if (list) render(list, events, { limit: 6 });
+            var events = buildOccurrences(parseICS(res.text || ''), now, now + 366 * DAY);
+            if (list) render(list, events, { limit: 6, offline: res.offline });
             if (next) {
                 // Für die Startseite einen öffentlichen Termin wählen (interne Convente überspringen)
                 var pub = events.filter(function (e) { var t = tagOf(e.title); return !(t && t.label === 'Convent'); });

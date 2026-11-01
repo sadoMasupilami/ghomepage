@@ -50,6 +50,10 @@
         body.classList.toggle('menu-open', open);
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+        // Hintergrund (Inhalt, Fußzeile, „Nach oben“) für Tastatur und Screenreader sperren
+        doc.querySelectorAll('main, .site-footer, #toTop').forEach(function (n) {
+            if (open) n.setAttribute('inert', ''); else n.removeAttribute('inert');
+        });
         if (open) {
             lastFocus = doc.activeElement;
             var first = mobileNav.querySelector('a');
@@ -72,7 +76,7 @@
             }
         });
         window.addEventListener('resize', function () {
-            if (window.innerWidth > 1080 && body.classList.contains('menu-open')) setMenu(false);
+            if (window.innerWidth > 1120 && body.classList.contains('menu-open')) setMenu(false);
         });
     }
 
@@ -109,20 +113,24 @@
     }
 
     /* ── Eingebettete Inhalte (Spotify, Google Maps): erst nach Zustimmung oder Klick ── */
-    function fillEmbed(gate) {
+    function fillEmbed(gate, focusIt) {
         var tpl = gate.querySelector('template');
         var ph = gate.querySelector('.embed-ph');
         if (!tpl || !ph) return;
         gate.appendChild(tpl.content.cloneNode(true));
         ph.remove();
         tpl.remove();
+        // Der geklickte Button ist jetzt weg → Fokus auf den geladenen Inhalt statt zurück an den Seitenanfang
+        if (focusIt) { var f = gate.querySelector('iframe'); if (f) f.focus(); }
     }
-    function loadAllEmbeds() { doc.querySelectorAll('[data-embed]').forEach(fillEmbed); }
+    function loadAllEmbeds() { doc.querySelectorAll('[data-embed]').forEach(function (g) { fillEmbed(g, false); }); }
     doc.querySelectorAll('[data-load-embed]').forEach(function (btn) {
-        btn.addEventListener('click', function () { fillEmbed(btn.closest('[data-embed]')); });
+        btn.addEventListener('click', function () { fillEmbed(btn.closest('[data-embed]'), true); });
     });
-    try { if (localStorage.getItem('gothia-consent') === 'granted') loadAllEmbeds(); } catch (e) { /* ignorieren */ }
-    doc.addEventListener('gothia-consent', function (e) { if (e.detail === 'granted') loadAllEmbeds(); });
+    // Einwilligung „Externe Medien“ (consent.js) → Karte und Player automatisch laden
+    function mediaAllowed(state) { return !!(state && state.media); }
+    if (mediaAllowed(window.gothiaConsentState)) loadAllEmbeds();
+    doc.addEventListener('gothia-consent', function (e) { if (mediaAllowed(e.detail)) loadAllEmbeds(); });
     // Rückwärtskompatibel für alte Aufrufe loadEmbed('id')
     window.loadEmbed = function (id) { var g = doc.getElementById(id); if (g) fillEmbed(g); };
 
@@ -152,7 +160,7 @@
         if (text) toast.querySelector('span').textContent = text;
         toast.classList.add('is-visible');
         clearTimeout(showToast.t);
-        showToast.t = setTimeout(function () { toast.classList.remove('is-visible'); }, 4500);
+        showToast.t = setTimeout(function () { toast.classList.remove('is-visible'); }, 9000);
     }
 
     if (form) {
@@ -161,7 +169,7 @@
             var val = function (id) { var el = doc.getElementById(id); return el ? el.value.trim() : ''; };
             var name = [val('cf-vorname'), val('cf-nachname')].filter(Boolean).join(' ');
             var interesse = val('cf-interesse');
-            var nachricht = val('cf-nachricht');
+            var nachricht = val('cf-nachricht').replace(/\r?\n/g, '\r\n');
             var subject = 'Anfrage über die Website' + (interesse ? ' – ' + interesse : '');
             var lines = ['Name: ' + (name || '—'), 'Interesse: ' + (interesse || '—'), '', 'Nachricht:', nachricht || '—'];
             // Anfragen zum Wohnen gehen an die Heimleitung, alles Übrige an die Gothia
@@ -171,7 +179,7 @@
             window.location.href = 'mailto:' + recipient +
                 '?subject=' + encodeURIComponent(subject) +
                 '&body=' + encodeURIComponent(lines.join('\r\n'));
-            showToast('E-Mail-Programm geöffnet — bitte nur noch abschicken.');
+            showToast('Dein E-Mail-Programm sollte sich jetzt öffnen. Falls nicht, schreib direkt an ' + recipient + '.');
         });
     }
 
@@ -182,17 +190,22 @@
             .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
             .then(function (data) {
                 var rooms = Array.isArray(data) ? data : (data.zimmer || []);
-                var free = rooms.filter(function (r) { return r.status === 'frei'; });
-                var prices = free.map(function (r) { return r.price; }).filter(function (p) { return typeof p === 'number'; });
+                // gleiche Toleranz wie zimmer.js: „Frei“, „ frei “, Preis "380" oder "380,50"
+                var norm = function (v) { return String(v == null ? '' : v).trim().toLowerCase(); };
+                var num = function (v) { var n = Number(String(v == null ? '' : v).replace(',', '.')); return v !== null && v !== '' && isFinite(n) ? n : null; };
+                var free = rooms.filter(function (r) { return norm(r.status) === 'frei'; });
+                var prices = free.map(function (r) { return num(r.price); }).filter(function (p) { return p !== null; });
                 var text;
                 if (free.length) {
-                    text = 'Aktuell ' + (free.length === 1 ? '1 Zimmer' : free.length + ' Zimmer') + ' frei' +
-                        (prices.length ? ' · ab ' + Math.min.apply(null, prices) + ' € / Monat' : '');
+                    var min = prices.length ? Math.min.apply(null, prices) : null;
+                    var varies = prices.some(function (p) { return p !== min; });
+                    text = 'Aktuell ' + (free.length === 1 ? '1\u00a0Zimmer' : free.length + '\u00a0Zimmer') + ' frei' +
+                        (min !== null ? ' · ' + (varies ? 'ab ' : '') + min + '\u00a0€ / Monat' : '');
                 } else {
                     text = 'Derzeit alle Zimmer vergeben — frag gerne nach';
                     avail.classList.add('is-none');
                 }
-                if (free.length) avail.setAttribute('href', 'zimmer.html?filter=frei');
+                if (free.length) avail.setAttribute('href', 'zimmer.html?filter=frei#zimmer');
                 avail.querySelector('[data-avail-text]').textContent = text;
                 avail.hidden = false;
             })
